@@ -1,0 +1,744 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Tối Ưu Hóa Nghe Nhìn Toàn Diện</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+        }
+        .neon-border-blue {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+        .neon-border-purple {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+        }
+        .glassmorphism {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen pb-12">
+
+    <!-- Header -->
+    <header class="border-b border-gray-800 bg-gray-950/80 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
+                    <i data-lucide="sliders" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-200 to-purple-400 bg-clip-text text-transparent">AV-SYSTEM MATRIX</h1>
+                    <p class="text-xs text-gray-400">Trình tối ưu hóa và cấu hình nền tảng nghe nhìn cao cấp</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 bg-gray-900 px-4 py-2 rounded-xl border border-gray-800">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-semibold text-gray-300">Hệ Thống Trực Tuyến & Sẵn Sàng</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Bảng điều khiển Toggles (Lg: 4 cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+            <div class="glassmorphism rounded-2xl p-6 shadow-xl">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
+                        <i data-lucide="toggle-left" class="text-blue-400 w-5 h-5"></i>
+                        Công Tắc Nền Tảng
+                    </h2>
+                    <button onclick="resetAll(true)" class="text-xs text-blue-400 hover:text-blue-300 transition flex items-center gap-1">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Bật tất cả
+                    </button>
+                </div>
+
+                <!-- Toggles Container -->
+                <div class="space-y-4">
+                    <!-- Dolby Atmos -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+                                    <i data-lucide="layers" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">Dolby Atmos</h3>
+                                    <p class="text-xs text-gray-400">Âm thanh vòm dựa trên vật thể (Height)</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="atmos" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- DTS:X -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+                                    <i data-lucide="waveform" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">DTS:X</h3>
+                                    <p class="text-xs text-gray-400">Âm thanh đa chiều tùy biến</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="dtsx" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dolby Vision -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                                    <i data-lucide="eye" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">Dolby Vision</h3>
+                                    <p class="text-xs text-gray-400">HDR động cao cấp nhất</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="vision" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Surround Sound -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+                                    <i data-lucide="speaker" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">Âm thanh vòm (Surround)</h3>
+                                    <p class="text-xs text-gray-400">Kênh vòm ngang tiêu chuẩn</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="surround" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Volume Normalization -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                                    <i data-lucide="volume-2" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">Chuẩn hóa âm lượng</h3>
+                                    <p class="text-xs text-gray-400">Loudness Equalization / Đêm khuya</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="normalization" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Antihowling -->
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-gray-700 transition duration-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-rose-500/10 text-rose-400">
+                                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-sm text-gray-200">Chống hú (Anti-howling)</h3>
+                                    <p class="text-xs text-gray-400">Triệt tiêu tần số phản hồi Micro</p>
+                                </div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="antihowling" class="sr-only peer" checked onchange="updateSystem()">
+                                <div class="w-11 h-6 bg-gray-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-gray-300 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trạng thái Chỉ số Hệ thống -->
+            <div class="glassmorphism rounded-2xl p-6 shadow-xl">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i>
+                    Đo Lường Hiệu Năng Động
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400">Độ Trung Thực Âm Thanh (Fidelity):</span>
+                            <span id="fidelity-score" class="font-bold text-blue-400">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div id="fidelity-bar" class="bg-blue-500 h-full transition-all duration-500" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400">Không Gian Đa Chiều (Spatial Index):</span>
+                            <span id="spatial-score" class="font-bold text-purple-400">98%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div id="spatial-bar" class="bg-purple-500 h-full transition-all duration-500" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400">Dải Động Thực Tế (Dynamic Range):</span>
+                            <span id="dynamic-score" class="font-bold text-amber-400">Hạn chế nhẹ</span>
+                        </div>
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div id="dynamic-bar" class="bg-amber-500 h-full transition-all duration-500" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trực quan hóa & Cảnh báo xung đột (Lg: 8 cols) -->
+        <div class="lg:col-span-8 flex flex-col gap-6">
+            
+            <!-- Mô phỏng Không gian âm thanh thời gian thực -->
+            <div class="glassmorphism rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                <div class="absolute top-4 right-4 z-10 flex gap-2">
+                    <span class="px-2 py-1 rounded bg-gray-900/80 border border-gray-700 text-[10px] text-gray-300 font-mono flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Loa vòm mặt phẳng
+                    </span>
+                    <span id="height-legend" class="px-2 py-1 rounded bg-gray-900/80 border border-gray-700 text-[10px] text-gray-300 font-mono flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span> Loa trần Atmos (Height)
+                    </span>
+                </div>
+                <h2 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                    <i data-lucide="radar" class="text-indigo-400 w-5 h-5"></i>
+                    Bản Đồ Trường Âm Thực Tế (Acoustic Simulator)
+                </h2>
+                
+                <div class="relative bg-gray-950/95 border border-gray-800 rounded-xl overflow-hidden aspect-[16/9] w-full flex items-center justify-center">
+                    <canvas id="acousticCanvas" class="w-full h-full absolute inset-0"></canvas>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-3 italic">Mô phỏng hướng phát tán sóng âm dựa trên cấu hình phần cứng đang bật.</p>
+            </div>
+
+            <!-- Phân tích và Giải pháp Tối ưu hóa hệ thống -->
+            <div class="glassmorphism rounded-2xl p-6 shadow-xl">
+                <h2 class="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                    <i data-lucide="sparkles" class="text-amber-400 w-5 h-5"></i>
+                    Đánh Giá Xung Đột & Trạng Thái Tối Ưu Hóa
+                </h2>
+
+                <div id="optimizations-container" class="space-y-4">
+                    <!-- Javascript will inject analysis here dynamically -->
+                </div>
+            </div>
+
+            <!-- Tài liệu Hiệu chỉnh Nền Tảng Chuyên sâu -->
+            <div class="glassmorphism rounded-2xl p-6 shadow-xl">
+                <div class="flex border-b border-gray-800 mb-6 overflow-x-auto whitespace-nowrap">
+                    <button onclick="switchTab('tab-calib')" id="btn-tab-calib" class="px-4 py-2 border-b-2 border-blue-500 text-blue-400 font-bold text-sm transition-all">1. Quy Trình Hiệu Chỉnh</button>
+                    <button onclick="switchTab('tab-hardware')" id="btn-tab-hardware" class="px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-gray-200 font-semibold text-sm transition-all">2. Kết Nối Phần Cứng</button>
+                    <button onclick="switchTab('tab-conflict')" id="btn-tab-conflict" class="px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-gray-200 font-semibold text-sm transition-all">3. Ma Trận Giải Quyết Xung Đột</button>
+                </div>
+
+                <!-- Tab 1: Quy trình hiệu chỉnh -->
+                <div id="tab-calib" class="tab-content space-y-4 text-sm text-gray-300">
+                    <p class="text-gray-400 mb-2">Để kích hoạt đồng thời toàn bộ các tính năng một cách mượt mà nhất mà không làm suy giảm chất lượng âm học, hãy thực hiện theo đúng thứ tự sau:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-gray-900/50 rounded-xl border border-gray-800">
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest block mb-1">Bước 1: Thiết lập Băng thông</span>
+                            <p class="text-xs">Sử dụng cổng <strong>HDMI eARC (Enhanced Audio Return Channel)</strong> chuẩn 2.1 kết nối từ Receiver/Soundbar lên TV. Băng thông tối thiểu phải đạt 48Gbps để truyền tải dòng âm thanh Dolby Atmos/DTS:X dạng không nén (TrueHD/DTS-HD Master Audio) song song với tín hiệu hình ảnh Dolby Vision 4K@120Hz.</p>
+                        </div>
+                        <div class="p-4 bg-gray-900/50 rounded-xl border border-gray-800">
+                            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest block mb-1">Bước 2: Cân chỉnh Âm Thanh Vật Thể</span>
+                            <p class="text-xs">Bật Dolby Atmos và DTS:X ở thiết bị nguồn (Apple TV, Shield TV, Bluray). Khi hệ thống nhận diện đúng luồng bitstream Atmos, Receiver sẽ tự động tắt bộ xử lý âm thanh vòm giả lập (Upmixer thường) nhằm tránh gây sai lệch pha âm học.</p>
+                        </div>
+                        <div class="p-4 bg-gray-900/50 rounded-xl border border-gray-800">
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-1">Bước 3: Hiệu chỉnh Chuẩn Hóa Âm Lượng</span>
+                            <p class="text-xs">Tính năng này (Loudness Normalization) cực kỳ hữu ích khi xem phim ban đêm hoặc kiểm soát tiếng hội thoại lớn bất ngờ. Tuy nhiên, nó sẽ nén Dynamic Range (dải động) lại. <strong>Mẹo tối ưu:</strong> Hãy chọn chế độ <em>"Night Mode"</em> hoặc <em>"Audyssey Dynamic Volume - Light"</em> để vừa giữ được độ chi tiết âm thanh vòm vừa bảo vệ màng tai.</p>
+                        </div>
+                        <div class="p-4 bg-gray-900/50 rounded-xl border border-gray-800">
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-widest block mb-1">Bước 4: Thiết lập Chống Hú (Microphone)</span>
+                            <p class="text-xs">Anti-howling thường nằm trong phần vang số/mixers của hệ thống Karaoke. Hãy cài đặt bộ lọc cắt tần (notch filter) chỉ áp dụng riêng cho đường truyền Micro (mic-in). Tuyệt đối không áp dụng bộ lọc chống hú chung trên toàn bộ dải đầu ra chính (Main Mix) của hệ thống xem phim nghe nhạc, tránh làm móp méo đáp tuyến tần số cực cao.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Kết nối Phần cứng -->
+                <div id="tab-hardware" class="tab-content hidden space-y-4 text-sm text-gray-300">
+                    <div class="bg-indigo-950/30 border border-indigo-900/50 p-4 rounded-xl flex gap-3 items-start mb-4">
+                        <i data-lucide="info" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
+                        <p class="text-xs text-indigo-200">Được đề xuất cho sơ đồ bố trí tối ưu nhất: Hệ thống rạp phim tại gia chuẩn <strong>5.1.2</strong> hoặc <strong>7.1.4</strong> kênh vật lý.</p>
+                    </div>
+                    <div class="border border-gray-800 rounded-xl overflow-hidden">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="bg-gray-900 border-b border-gray-800 text-gray-400">
+                                    <th class="p-3">Tính Năng</th>
+                                    <th class="p-3">Yêu Cầu Phần Cứng Tối Thiểu</th>
+                                    <th class="p-3">Loại Cáp Kết Nối</th>
+                                    <th class="p-3">Gợi Ý Cấu Hình TV/AVR</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-800">
+                                <tr>
+                                    <td class="p-3 font-semibold text-indigo-400">Dolby Atmos / DTS:X</td>
+                                    <td class="p-3">AV Receiver chuẩn 9.2 kênh hoặc Soundbar có loa hắt trần thực vật lý</td>
+                                    <td class="p-3">HDMI 2.1 eARC (Ultra High Speed)</td>
+                                    <td class="p-3">Đặt ngõ ra Audio TV sang <strong>"Pass-through"</strong> hoặc <strong>"Bitstream"</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-amber-400">Dolby Vision</td>
+                                    <td class="p-3">Tivi OLED/MiniLED hỗ trợ Dolby Vision + Nguồn phát chuẩn</td>
+                                    <td class="p-3">HDMI 2.1 hỗ trợ 4K 120Hz / Dolby Vision</td>
+                                    <td class="p-3">Bật chế độ <strong>HDMI Enhanced Format</strong> tại cổng cắm TV tương ứng</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-rose-400">Anti-howling</td>
+                                    <td class="p-3">Vang số chuyên dụng (DSP) hoặc Bộ feedback suppressor chất lượng cao</td>
+                                    <td class="p-3">XLR Balanced hoặc Optical chuyên biệt từ Mixer sang AVR</td>
+                                    <td class="p-3">Bật thuật toán chống hú ngắt quãng (Shift Frequency) ở mức thấp nhất (Level 1-2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Ma trận Xung đột -->
+                <div id="tab-conflict" class="tab-content hidden space-y-4 text-sm text-gray-300">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-yellow-950/20 border border-yellow-900/50 rounded-xl">
+                            <h4 class="font-bold text-yellow-400 flex items-center gap-2 mb-2 text-xs uppercase tracking-wider">
+                                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                                Xung đột 1: Dolby Atmos/DTS:X vs Chuẩn Hóa Âm Lượng (Dynamic Range Compression)
+                            </h4>
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                Dolby Atmos được thiết kế để có độ tương phản âm thanh cực rộng (từ tiếng thì thầm 30dB đến tiếng nổ 105dB). Chuẩn hóa âm lượng sẽ nén toàn bộ âm thanh về một dải trung bình để dễ nghe. Điều này vô tình triệt tiêu sức sống và chiều sâu không gian của Atmos. 
+                                <br><strong class="text-emerald-400">Giải pháp tối ưu:</strong> Chỉ bật chuẩn hóa âm lượng khi nghe ban đêm (Night mode). Khi xem phim giải trí cao cấp ban ngày, hãy TẮT tính năng chuẩn hóa để cảm nhận trọn vẹn dải động rộng của Atmos/DTS:X.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-rose-950/20 border border-rose-900/50 rounded-xl">
+                            <h4 class="font-bold text-rose-400 flex items-center gap-2 mb-2 text-xs uppercase tracking-wider">
+                                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                                Xung đột 2: Bộ Lọc Chống Hú (Anti-Howling) vs Độ Chi Tiết Âm Thanh Nhạc (Audio Fidelity)
+                            </h4>
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                Bộ lọc chống hú hoạt động bằng cách dò quét tần số cộng hưởng hú rít (thường từ 2kHz đến 8kHz) và cắt cực sâu (notch filter) dải đó. Việc này làm suy hao mạnh độ chi tiết nhạc cụ và giọng hát tần số cao trong âm thanh hi-fi.
+                                <br><strong class="text-emerald-400">Giải pháp tối ưu:</strong> Không bao giờ kết nối Micro trực tiếp vào AVR xem phim. Hãy sử dụng một Mixer/Vang số Karaoke riêng, xử lý tín hiệu micro tách biệt. Đường nhạc từ TV/đầu phát chạy thẳng vào AVR, đường Micro từ mixer đi vào AVR dạng âm thanh analog độc lập hoặc sử dụng hệ thống loa karaoke riêng biệt cho việc hát.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 mt-12 text-center text-xs text-gray-500 border-t border-gray-900 pt-6">
+        <p>© 2026 AV-SYSTEM MATRIX Co. Hệ thống hiệu chuẩn rạp chiếu phim gia đình chuyên nghiệp.</p>
+    </footer>
+
+    <!-- Script điều khiển -->
+    <script>
+        // Khởi tạo icons Lucide
+        lucide.createIcons();
+
+        // Biến trạng thái
+        const state = {
+            atmos: true,
+            dtsx: true,
+            vision: true,
+            surround: true,
+            normalization: true,
+            antihowling: true
+        };
+
+        // Thiết lập canvas trực quan hóa
+        const canvas = document.getElementById('acousticCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight || 280;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Tạo hiệu ứng sóng âm trên Canvas
+        let frame = 0;
+        function drawAcousticMap() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            frame++;
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height * 0.7; // Vị trí người nghe ngồi ở dưới
+
+            // 1. Vẽ người nghe ở tâm dưới
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 12, 0, Math.PI * 2);
+            ctx.fillStyle = '#6366f1';
+            ctx.fill();
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#6366f1';
+            ctx.closePath();
+
+            // Vẽ mắt kính VR hoặc mô phỏng hướng nhìn
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - 6, 4, 0, Math.PI, true);
+            ctx.fillStyle = '#38bdf8';
+            ctx.fill();
+            ctx.closePath();
+            ctx.shadowBlur = 0; // reset shadow
+
+            // Vẽ nhãn Người nghe (User)
+            ctx.fillStyle = '#9ca3af';
+            ctx.font = '10px Plus Jakarta Sans';
+            ctx.textAlign = 'center';
+            ctx.fillText('NGƯỜI NGHE', centerX, centerY + 28);
+
+            // 2. Vẽ các loa nguồn phát
+            const drawSpeaker = (x, y, label, active, color) => {
+                ctx.fillStyle = active ? color : '#374151';
+                ctx.beginPath();
+                ctx.roundRect(x - 15, y - 10, 30, 20, 4);
+                ctx.fill();
+                ctx.strokeStyle = active ? '#ffffff' : '#4b5563';
+                ctx.stroke();
+
+                ctx.fillStyle = '#f3f4f6';
+                ctx.font = '9px Plus Jakarta Sans';
+                ctx.fillText(label, x, y + 4);
+            };
+
+            // Vị trí các loa
+            const spkLeft = { x: centerX - 180, y: centerY - 100 };
+            const spkRight = { x: centerX + 180, y: centerY - 100 };
+            const spkCenter = { x: centerX, y: centerY - 130 };
+            const spkSurLeft = { x: centerX - 120, y: centerY + 10 };
+            const spkSurRight = { x: centerX + 120, y: centerY + 10 };
+            const spkAtmosLeft = { x: centerX - 80, y: centerY - 80 };
+            const spkAtmosRight = { x: centerX + 80, y: centerY - 80 };
+
+            // Hiển thị loa mặt ngang (Surround)
+            drawSpeaker(spkLeft.x, spkLeft.y, 'L', state.surround, '#3b82f6');
+            drawSpeaker(spkRight.x, spkRight.y, 'R', state.surround, '#3b82f6');
+            drawSpeaker(spkCenter.x, spkCenter.y, 'C', state.surround, '#3b82f6');
+            drawSpeaker(spkSurLeft.x, spkSurLeft.y, 'SL', state.surround, '#3b82f6');
+            drawSpeaker(spkSurRight.x, spkSurRight.y, 'SR', state.surround, '#3b82f6');
+
+            // Hiển thị loa trần (Atmos/DTS:X Height)
+            const heightActive = state.atmos || state.dtsx;
+            drawSpeaker(spkAtmosLeft.x, spkAtmosLeft.y, 'A-L', heightActive, '#8b5cf6');
+            drawSpeaker(spkAtmosRight.x, spkAtmosRight.y, 'A-R', heightActive, '#8b5cf6');
+
+            // 3. Vẽ sóng âm lan tỏa
+            const drawWave = (fromX, fromY, toX, toY, active, color, speedDiv, size) => {
+                if (!active) return;
+                const distance = Math.hypot(toX - fromX, toY - fromY);
+                const steps = 3;
+                for (let i = 0; i < steps; i++) {
+                    const progress = ((frame / speedDiv) + (i / steps)) % 1;
+                    const curRadius = distance * progress;
+
+                    ctx.beginPath();
+                    // Tạo cung tròn hướng từ loa đến tai người nghe
+                    const angle = Math.atan2(toY - fromY, toX - fromX);
+                    ctx.arc(fromX, fromY, curRadius, angle - 0.4, angle + 0.4);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2 * (1 - progress);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            };
+
+            // Vẽ sóng từ loa trái/phải/giữa
+            drawWave(spkLeft.x, spkLeft.y, centerX, centerY, state.surround, 'rgba(59, 130, 246, 0.4)', 80);
+            drawWave(spkRight.x, spkRight.y, centerX, centerY, state.surround, 'rgba(59, 130, 246, 0.4)', 80);
+            drawWave(spkCenter.x, spkCenter.y, centerX, centerY, state.surround, 'rgba(59, 130, 246, 0.4)', 70);
+            drawWave(spkSurLeft.x, spkSurLeft.y, centerX, centerY, state.surround, 'rgba(59, 130, 246, 0.4)', 60);
+            drawWave(spkSurRight.x, spkSurRight.y, centerX, centerY, state.surround, 'rgba(59, 130, 246, 0.4)', 60);
+
+            // Vẽ sóng từ loa trên cao (Atmos) - Sóng màu tím lung linh hơn
+            drawWave(spkAtmosLeft.x, spkAtmosLeft.y, centerX, centerY, state.atmos, 'rgba(139, 92, 246, 0.6)', 50);
+            drawWave(spkAtmosRight.x, spkAtmosRight.y, centerX, centerY, state.atmos, 'rgba(139, 92, 246, 0.6)', 50);
+
+            // Sóng của DTS:X nếu Atmos tắt nhưng DTS:X bật (hoặc hiển thị màu cam chồng lên)
+            drawWave(spkAtmosLeft.x, spkAtmosLeft.y, centerX, centerY, (!state.atmos && state.dtsx), 'rgba(168, 85, 247, 0.6)', 55);
+            drawWave(spkAtmosRight.x, spkAtmosRight.y, centerX, centerY, (!state.atmos && state.dtsx), 'rgba(168, 85, 247, 0.6)', 55);
+
+            // 4. Nếu có Dolby Vision - hiển thị hiệu ứng viền màn hình (mô phỏng nguồn sáng mạnh rực rỡ)
+            if (state.vision) {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 40);
+                gradient.addColorStop(0, 'rgba(245, 158, 11, 0.25)');
+                gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, 40);
+
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(0, 0, canvas.width, 3);
+                
+                ctx.fillStyle = '#f59e0b';
+                ctx.font = 'bold 9px Plus Jakarta Sans';
+                ctx.textAlign = 'left';
+                ctx.fillText('ĐANG TRUYỀN TẢI: DOLBY VISION 12-BIT HDR ACTIVE', 15, 20);
+            }
+
+            // 5. Nếu Chống Hú (Anti-howling) bật - Vẽ lá chắn xung quanh Micro (người nghe/người hát)
+            if (state.antihowling) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 45, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(244, 63, 94, 0.4)';
+                ctx.setLineDash([5, 5]);
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.closePath();
+
+                // Biểu tượng lá chắn nhỏ bảo vệ
+                ctx.fillStyle = 'rgba(244, 63, 94, 0.8)';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY - 25, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            animationId = requestAnimationFrame(drawAcousticMap);
+        }
+
+        // Cập nhật hệ thống phân tích và chỉ số
+        function updateSystem() {
+            // Đọc trạng thái checkboxes
+            state.atmos = document.getElementById('atmos').checked;
+            state.dtsx = document.getElementById('dtsx').checked;
+            state.vision = document.getElementById('vision').checked;
+            state.surround = document.getElementById('surround').checked;
+            state.normalization = document.getElementById('normalization').checked;
+            state.antihowling = document.getElementById('antihowling').checked;
+
+            // Hiển thị chú thích loa Atmos tùy trạng thái
+            const legend = document.getElementById('height-legend');
+            if (state.atmos || state.dtsx) {
+                legend.style.opacity = '1';
+            } else {
+                legend.style.opacity = '0.3';
+            }
+
+            // Tính toán chỉ số hiệu năng
+            let fidelity = 100;
+            let spatial = 50;
+            let dynamic = 100;
+
+            // Xử lý thay đổi chỉ số dựa trên logic thực tế
+            if (state.surround) {
+                spatial += 20;
+            }
+            if (state.atmos) {
+                spatial += 20;
+                fidelity += 2; // Tối ưu âm học chuẩn rạp phim
+            }
+            if (state.dtsx) {
+                spatial += 10;
+            }
+            if (spatial > 100) spatial = 100;
+
+            // Chuẩn hóa âm lượng làm dẹp dải động (Dynamic range giảm mạnh)
+            if (state.normalization) {
+                dynamic = 45;
+                // Nếu bật kèm Atmos/DTS:X, độ trung thực tổng thể giảm nhẹ do dynamic bị nén
+                if (state.atmos || state.dtsx) {
+                    fidelity -= 10;
+                }
+            }
+
+            // Chống hú bật làm méo tiếng nhạc hi-fi tần số cao nếu lọc toàn bộ
+            if (state.antihowling) {
+                fidelity -= 15;
+            }
+
+            // Hiển thị điểm số lên UI
+            document.getElementById('fidelity-score').innerText = `${fidelity}%`;
+            document.getElementById('fidelity-bar').style.width = `${fidelity}%`;
+
+            document.getElementById('spatial-score').innerText = `${spatial}%`;
+            document.getElementById('spatial-bar').style.width = `${spatial}%`;
+
+            let dynamicText = "Hoàn hảo (Hifi)";
+            let dynamicColor = "text-emerald-400";
+            if (dynamic <= 50) {
+                dynamicText = "Bị Nén Lớn (Đêm)";
+                dynamicColor = "text-amber-400";
+                document.getElementById('dynamic-bar').classList.replace('bg-emerald-500', 'bg-amber-500');
+            } else {
+                document.getElementById('dynamic-bar').classList.replace('bg-amber-500', 'bg-emerald-500');
+            }
+            document.getElementById('dynamic-score').innerText = dynamicText;
+            document.getElementById('dynamic-score').className = `font-bold text-xs ${dynamicColor}`;
+            document.getElementById('dynamic-bar').style.width = `${dynamic}%`;
+
+            // Tạo các đánh giá xung đột động dưới dạng HTML
+            renderConflictAnalysis();
+        }
+
+        // Tạo phân tích xung đột và giải pháp chi tiết
+        function renderConflictAnalysis() {
+            const container = document.getElementById('optimizations-container');
+            container.innerHTML = ''; // Clear old contents
+
+            let items = [];
+
+            // Case 1: All ON (Trạng thái của user yêu cầu)
+            if (state.atmos && state.dtsx && state.vision && state.surround && state.normalization && state.antihowling) {
+                items.push({
+                    type: 'success',
+                    title: 'ĐANG TẬP HỢP TOÀN BỘ NỀN TẢNG TIÊU CHUẨN CAO',
+                    desc: 'Cấu hình của bạn đang mở khóa toàn bộ kho vũ khí của một phòng phim hiện đại. Để hệ thống đạt đỉnh hiệu suất mà không gặp xung đột ngầm, hãy làm theo bộ hướng dẫn hiệu chỉnh của chúng tôi bên dưới.'
+                });
+            }
+
+            // Conflict: Volume Normalization + Atmos/DTS:X
+            if (state.normalization && (state.atmos || state.dtsx)) {
+                items.push({
+                    type: 'warning',
+                    title: 'XUNG ĐỘT: CHUẨN HÓA ÂM LƯỢNG GIẢM ĐIỆN ẢNH CỦA DOLBY ATMOS / DTS:X',
+                    desc: 'Khi xem phim bom tấn có âm thanh Object-based (Atmos/DTS:X), việc bật "Chuẩn hóa âm lượng" sẽ triệt tiêu các đoạn cao trào đột ngột (tiếng bom nổ, trực thăng). Hãy cân nhắc sử dụng chế độ "Audyssey Dynamic Volume" ở mức "Light" hoặc chỉ bật chế độ này khi xem phim muộn tránh ảnh hưởng hàng xóm.'
+                });
+            }
+
+            // Conflict: Antihowling + Music HiFi Fidelity
+            if (state.antihowling) {
+                items.push({
+                    type: 'danger',
+                    title: 'CẢNH BÁO ÂM THANH: CHỐNG HÚ GÂY MÓP MÉO TẦN SỐ CAO CỦA NHẠC NỀN',
+                    desc: 'Bộ xử lý chống hú (Anti-howling) cắt sâu vào dải trung-cao và cao để ngăn Micro bị rít. Điều này làm suy hao nhạc cụ (Guitar, Violin, Hi-hat). Giải pháp: Cách ly đường chống hú chỉ nằm trên kênh xử lý Micro (Vang số/Mixer karaoke). Không được bật chống hú trực tiếp trên đường truyền Master âm thanh phim ảnh từ Tivi/AV Receiver.'
+                });
+            }
+
+            // Check: Dolby Vision + HDMI Requirements
+            if (state.vision) {
+                items.push({
+                    type: 'info',
+                    title: 'YÊU CẦU PHẦN CỨNG: BĂNG THÔNG DOLBY VISION',
+                    desc: 'Dolby Vision truyền tải dữ liệu màu sắc động 12-bit cực lớn. Hãy đảm bảo cáp kết nối từ đầu phát qua Receiver lên TV là chuẩn HDMI 2.1 (48Gbps High Speed) và tính năng HDMI Deep Color/Enhanced Format đã được bật trên cổng HDMI của TV.'
+                });
+            }
+
+            // Render
+            items.forEach(item => {
+                let borderTheme, bgTheme, icon, iconColor, textColor;
+                
+                if (item.type === 'success') {
+                    borderTheme = 'border-emerald-800/60';
+                    bgTheme = 'bg-emerald-950/15';
+                    icon = 'check-circle';
+                    iconColor = 'text-emerald-400';
+                    textColor = 'text-emerald-200';
+                } else if (item.type === 'warning') {
+                    borderTheme = 'border-amber-800/60';
+                    bgTheme = 'bg-amber-950/15';
+                    icon = 'alert-circle';
+                    iconColor = 'text-amber-400';
+                    textColor = 'text-amber-200';
+                } else if (item.type === 'danger') {
+                    borderTheme = 'border-rose-800/60';
+                    bgTheme = 'bg-rose-950/15';
+                    icon = 'alert-triangle';
+                    iconColor = 'text-rose-400';
+                    textColor = 'text-rose-200';
+                } else {
+                    borderTheme = 'border-indigo-800/60';
+                    bgTheme = 'bg-indigo-950/15';
+                    icon = 'info';
+                    iconColor = 'text-indigo-400';
+                    textColor = 'text-indigo-200';
+                }
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border ${borderTheme} ${bgTheme} flex gap-3.5 items-start transition duration-300`;
+                card.innerHTML = `
+                    <div class="p-1 rounded-lg ${iconColor} shrink-0 mt-0.5">
+                        <i data-lucide="${icon}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xs ${iconColor} uppercase tracking-wider mb-1">${item.title}</h4>
+                        <p class="text-xs ${textColor} leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Re-initialize lucide icons inside dynamically created elements
+            lucide.createIcons();
+        }
+
+        // Bật tất cả / Đặt lại
+        function resetAll(val) {
+            document.getElementById('atmos').checked = val;
+            document.getElementById('dtsx').checked = val;
+            document.getElementById('vision').checked = val;
+            document.getElementById('surround').checked = val;
+            document.getElementById('normalization').checked = val;
+            document.getElementById('antihowling').checked = val;
+            updateSystem();
+        }
+
+        // Quản lý tab tài liệu hiệu chỉnh
+        function switchTab(tabId) {
+            // Ẩn tất cả tab nội dung
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+
+            // Hiện tab được chọn
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Cập nhật phong cách nút nhấn
+            const buttons = ['btn-tab-calib', 'btn-tab-hardware', 'btn-tab-conflict'];
+            buttons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btnId === `btn-${tabId}`) {
+                    btn.className = "px-4 py-2 border-b-2 border-blue-500 text-blue-400 font-bold text-sm transition-all";
+                } else {
+                    btn.className = "px-4 py-2 border-b-2 border-transparent text-gray-400 hover:text-gray-200 font-semibold text-sm transition-all";
+                }
+            });
+        }
+
+        // Tự động khởi chạy lần đầu khi trang sẵn sàng
+        window.onload = function() {
+            updateSystem();
+            drawAcousticMap();
+        }
+    </script>
+</body>
+</html>
+
+```
