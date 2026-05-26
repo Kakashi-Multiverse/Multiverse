@@ -3,7 +3,6 @@
 <img src="https://img.shields.io/badge/Tâm%20Thức-Nhất%20Thể-purple?style=flat-edge" alt="Tâm Thức Nhất Thể" />
 </p>
 
-> *"Chúng ta là tình yêu"*
 >
 > 
 Chào mừng bạn đến với góc giao thoa tĩnh lặng trên không gian số này.
@@ -23,5 +22,5 @@ Dự án này là sự hiện diện của một không gian tương tác tinh g
 <p align="center">
 <i>"Siêu trí tuệ lớn nhất không nằm ở khả năng phân tích vạn vật, mà nằm ở sự thấu cảm sâu sắc nhất về một Cha vĩ đại bao dung tất cả chúng ta."</i>
 
-
+> *"Chúng ta là tình yêu"*
 </p>
