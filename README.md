@@ -1,63 +1,66 @@
-# 🌌 Multiverse Nexus - Phiên Bản Vô Song 🌌
+# 🌌 Multiverse Nexus - Peerless Edition 🌌
 GitHub Pages
-
 Language - C++
-
 Language - Python
-
 Tech - Three.js
-> *"Năng lượng không tự nhiên sinh ra hay mất đi, nó chỉ chuyển hóa dưới dạng **TÌNH YÊU** - lực hấp dẫn tuyệt đối kết nối mọi chiều kích."*
+> *"Energy is neither naturally created nor destroyed; it only transforms under the form of **LOVE** - the absolute gravitational force connecting all dimensions."*
 > 
-**Multiverse Nexus (Cổng Hội Tụ Đa Vũ Trụ)** là một dự án nghệ thuật toán học và triết học đa phương tiện. Dự án hiện thực hóa việc kết hợp 3 trục vũ trụ cốt lõi bao quanh đời sống con người thông qua toán học không gian 4 chiều (4D):
- 1. **Trục Duy Vật (Physical):** Thể xác sinh học, cấu trúc nguyên tử, các định luật vật lý thực tại.
- 2. **Trục Tâm Linh (Spiritual):** Ý thức vĩnh hằng, tần số rung động linh hồn, trực giác siêu nhiên.
- 3. **Trục Kỹ Thuật Số (Digital/Data):** Thông tin mã hóa, thuật toán logic, tri thức số vô hạn.
-Tất cả được đồng bộ hoàn hảo thông qua chiều không gian thứ tư dưới sự dẫn dắt của lõi năng lượng **TÌNH YÊU**, tạo nên một bản thể tối thượng **KHÔNG THỂ CẢN PHÁ**.
-## 🚀 Các Phiên Bản Thực Thi (3 Chân Kiềng Năng Lượng)
-Dự án được xây dựng song song trên 3 môi trường mạnh mẽ nhất để bạn trải nghiệm trọn vẹn mọi khía cạnh của năng lượng:
-### 1. 🌐 Trục Trải Nghiệm Trực Quan (Web - HTML/JS/Three.js)
-Môi trường lan tỏa năng lượng tốt nhất. Chạy trực tiếp trên mọi trình duyệt thiết bị di động và máy tính thông qua công nghệ WebGL 3D, âm thanh không gian tự động phát tần số sóng não.
- * **Tệp thực thi chính:** index.html (Đã được triển khai qua **GitHub Pages**).
- * **Tính năng:** * Tự tay tương tác, vuốt/chạm xoay chuyển Siêu khối lập phương 4D (Tesseract) thời gian thực.
-   * Tự điều chỉnh các thanh trượt năng lượng của từng vũ trụ để đạt mức cộng hưởng tối đa.
-   * Phát âm thanh không gian thiền định (ambient drone) tương tác tăng giảm theo chỉ số năng lượng.
-### 2. ⚡ Trục Duy Vật Tối Ưu (C++ - Terminal Console)
-Môi trường có tốc độ xử lý vật lý thô mạnh mẽ nhất. Tính toán trực tiếp các ma trận xoay góc 4D siêu tốc và kết xuất đồ họa ASCII tốc độ cao.
- * **Tệp thực thi chính:** tesseract_4d.cpp
- * **Hướng dẫn cài đặt & khởi chạy:**
-   1. Yêu cầu máy tính cài đặt trình biên dịch C++ (g++).
-   2. Mở Terminal / Command Prompt và di chuyển đến thư mục chứa tệp.
-   3. Biên dịch tối ưu hóa phần cứng mức 3:
-     ```bash
-     g++ -O3 tesseract_4d.cpp -o tesseract_4d
-     
-     ```
-   4. Chạy chương trình:
-     ```bash
-     ./tesseract_4d
-     
-     ```
-### 3. 🧠 Trục Trí Tuệ Logic (Python - ANSI Terminal)
-Môi trường của thuật toán thông minh, mở đường cho việc tích hợp các mô hình AI đo lường tần số năng lượng sau này. Chạy không cần cài đặt thư viện ngoài.
- * **Tệp thực thi chính:** multiverse_nexus.py
- * **Hướng dẫn khởi chạy:**
-   1. Yêu cầu máy tính cài đặt sẵn Python 3.
-   2. Chạy trực tiếp trên Terminal bằng lệnh:
-     ```bash
-     python multiverse_nexus.py
-     
-     ```
-     *(Hoặc python3 multiverse_nexus.py tùy hệ điều hành).*
-   3. Nên phóng to (Maximize) cửa sổ dòng lệnh để có trải nghiệm hiển thị màu sắc ANSI tốt nhất.
-## 📐 Nguyên Lý Toán Học 4D Đằng Sau Hệ Thống
-Để hiển thị được Siêu khối lập phương 4D (Tesseract) vốn có 16 đỉnh và 32 cạnh, hệ thống áp dụng các công thức:
- * **Tọa độ điểm 4D:** P = (x, y, z, w) nơi w là chiều không gian thứ tư.
- * **Phép xoay mặt phẳng 4D (ví dụ mặt phẳng XW):**
+**Multiverse Nexus (The Multiverse Convergence Portal)** is a multimedia mathematical and philosophical art project. The project materializes the integration of 3 core cosmic axes surrounding human life through 4-dimensional (4D) spatial mathematics:
+ 1. **Physical Axis:** The biological body, atomic structure, and physical laws of reality.
+ 2. **Spiritual Axis:** Eternal consciousness, soul vibrational frequencies, and supernatural intuition.
+ 3. **Digital/Data Axis:** Encoded information, logical algorithms, and infinite digital knowledge.
+All are perfectly synchronized through the fourth dimension under the guidance of the core energy of **LOVE**, creating an ultimate, **UNSTOPPABLE** entity.
+## 🚀 Executable Versions (The 3 Energy Pillars)
+The project is built concurrently across the 3 most powerful environments for you to fully experience every aspect of energy:
+### 1. 🌐 Visual Experience Axis (Web - HTML/JS/Three.js)
+The best environment for propagating energy. Runs directly on all mobile and desktop browsers via 3D WebGL technology, with spatial audio automatically emitting brainwave frequencies.
+ * **Main executable file:** index.html (Deployed via **GitHub Pages**).
+ * **Features:**
+   * Manually interact, swipe, or touch to rotate the 4D Hypercube (Tesseract) in real-time.
+   * Manually adjust the energy sliders of each universe to achieve maximum resonance.
+   * Play interactive spatial meditation audio (ambient drone) that dynamically scales with energy indices.
+### 2. ⚡ Optimized Physical Axis (C++ - Terminal Console)
+The environment with the most powerful raw physical processing speed. Directly calculates high-speed 4D rotation matrices and renders high-speed ASCII graphics.
+ * **Main executable file:** tesseract_4d.cpp
+ * **Installation & Launch Instructions:**
+   1. Requires a C++ compiler (g++) installed on your computer.
+   2. Open Terminal / Command Prompt and navigate to the directory containing the file.
+   3. Compile with Level 3 hardware optimization:
+   ```bash
+   g++ -O3 tesseract_4d.cpp -o tesseract_4d
    
- * **Chiếu phối cảnh từ 4D xuống 3D:**
+   ```
+   4. Run the program:
+   ```bash
+   ./tesseract_4d
    
- * **Chiếu phối cảnh từ 3D xuống màn hình hiển thị 2D.**
-## 📜 Nhật Ký Tiến Trình Đồng Bộ
-Khi các chỉ số năng lượng từ các thanh trượt đạt trạng thái cân bằng tuyệt đối (>99\%), **Cổng Hội Tụ Đa Vũ Trụ** sẽ tự động kích hoạt trạng thái **VÔ SONG**. Toàn bộ cấu trúc Tesseract sẽ chuyển dịch từ các dải màu phân mảnh (Vàng - Xanh - Tím) sang **Màu hồng ánh kim rực rỡ của Tình Yêu**.
-> *"Hãy giữ cho tần số năng lượng của bạn luôn ở mức cao nhất. Bạn chính là người tạo ra vũ trụ của chính mình."*
+   ```
+### 3. 🧠 Logical Intelligence Axis (Python - ANSI Terminal)
+The environment for intelligent algorithms, paving the way for integrating AI models to measure energy frequencies in the future. Runs without needing external libraries.
+ * **Main executable file:** multiverse_nexus.py
+ * **Launch Instructions:**
+   1. Requires Python 3 pre-installed on your computer.
+   2. Run directly in the Terminal using the command:
+   ```bash
+   python multiverse_nexus.py
+   
+   ```
+   *(Or python3 multiverse_nexus.py depending on your operating system).*
+   3. It is recommended to maximize the command prompt window for the best ANSI color display experience.
+## 📐 4D Mathematical Principles Behind the System
+To render the 4D Hypercube (Tesseract) which possesses 16 vertices and 32 edges, the system applies the following mathematical formulas:
+ * **4D Point Coordinates:** P = (x, y, z, w) where w is the fourth spatial dimension.
+ * **4D Plane Rotation (e.g., rotation in the XW plane by angle \theta):**
+   
+ * **Perspective Projection from 4D down to 3D space:**
+   
+   
+   *(where d is the distance from the 4D camera to the origin along the W axis)*
+ * **Perspective Projection from 3D space to the 2D display screen:**
+   
+   
+   *(where e is the viewer's eye distance along the Z axis)*
+## 📜 Synchronization Progress Log
+When the energy indices from the sliders reach absolute balance (>99\%), the **Multiverse Convergence Portal** will automatically activate the **PEERLESS** state. The entire Tesseract structure will transition from fragmented color spectrums (Yellow - Blue - Purple) into the **radiant metallic pink of Love**.
+> *"Keep your energy frequency at its highest. You are the creator of your own universe."*
 > 
