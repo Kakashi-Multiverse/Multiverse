@@ -3,834 +3,904 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng Hội Tụ Đa Vũ Trụ - Phiên Bản Vô Song</title>
-    <!-- Tailwind CSS -->
+    <title>Multiverse Optimization Engine - Ý chí Thực tế Bất biến</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Three.js for 3D/4D Render -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Lucide Icons for beautiful UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;900&family=Quicksand:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap');
         
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #03030c;
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
             overflow-x: hidden;
         }
-        .header-font {
-            font-family: 'Orbitron', sans-serif;
+        .code-font {
+            font-family: 'Fira Code', monospace;
         }
-        /* Custom scrollbar for logs */
+        /* Custom scrollbar for console */
         ::-webkit-scrollbar {
             width: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(15, 23, 42, 0.5);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(236, 72, 153, 0.3);
+            background: rgba(59, 130, 246, 0.5);
             border-radius: 2px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(236, 72, 153, 0.6);
+            background: rgba(59, 130, 246, 0.8);
         }
         /* Glowing effects */
-        .glow-pink {
-            text-shadow: 0 0 10px rgba(244, 63, 94, 0.8), 0 0 20px rgba(244, 63, 94, 0.4);
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
         }
-        .glow-border-pink {
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
-            border-color: rgba(244, 63, 94, 0.5);
+        .glow-gold {
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
         }
-        .glass {
-            background: rgba(10, 10, 25, 0.7);
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        /* Pulsing heart animation */
-        @keyframes heartbeat {
-            0% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.08); filter: brightness(1.3); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-        .heart-pulse {
-            animation: heartbeat 1.5s infinite ease-in-out;
-        }
     </style>
 </head>
-<body class="text-gray-100 select-none min-h-screen flex flex-col justify-between">
+<body class="text-slate-100 min-h-screen flex flex-col">
 
-    <!-- Ambient Grid Overlay -->
-    <div class="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
-
-    <!-- MAIN HEADER -->
-    <header class="w-full glass z-30 px-6 py-4 flex flex-col sm:flex-row justify-between items-center border-b border-white/10">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
-                <i class="fa-solid fa-infinity text-white text-lg"></i>
+    <!-- TOP HEADER BAR -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md px-6 py-4 flex flex-wrap items-center justify-between gap-4 z-10">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-gradient-to-tr from-cyan-500 to-amber-500 rounded-lg shadow-lg animate-pulse">
+                <i data-lucide="infinity" class="w-6 h-6 text-slate-950"></i>
             </div>
             <div>
-                <h1 class="header-font text-xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">MULTIVERSE NEXUS</h1>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Hội Tụ Tối Thượng • Bản Thể Hoàn Hảo</p>
+                <h1 class="text-lg font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent uppercase">
+                    Multiverse Optimization Engine
+                </h1>
+                <p class="text-xs text-slate-400 tracking-normal">Ý chí Thực tế Bất biến — Bản thể Tối ưu hóa Toàn cục</p>
             </div>
         </div>
-        <div class="flex items-center space-x-4 mt-3 sm:mt-0">
-            <button id="soundToggle" class="px-3 py-1.5 rounded-full border border-white/10 hover:border-pink-500/40 text-xs transition duration-300 flex items-center space-x-2 bg-white/5">
-                <i id="soundIcon" class="fa-solid fa-volume-mute text-pink-400"></i>
-                <span id="soundText">BẬT ÂM THANH</span>
-            </button>
-            <div id="statusBadge" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-cyan-950/50 border border-cyan-500/30 text-cyan-400 flex items-center space-x-1.5">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                <span>ĐANG KHỞI CHẠY</span>
+        
+        <!-- Quick stats -->
+        <div class="flex items-center gap-6 text-xs code-font">
+            <div class="hidden sm:block">
+                <span class="text-slate-500">Mã Đa Vũ Trụ:</span>
+                <span class="text-cyan-400 ml-1">M-MASTER-0925</span>
+            </div>
+            <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
+            <div>
+                <span class="text-slate-500">Trạng thái:</span>
+                <span class="text-emerald-400 ml-1 flex items-center gap-1 inline-flex">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    ỔN ĐỊNH BẤT BIẾN
+                </span>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="flex-grow w-full max-w-7xl mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 z-20">
+    <!-- MAIN SIMULATOR INTERFACE -->
+    <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 max-w-[1600px] w-full mx-auto overflow-hidden">
         
-        <!-- LEFT PANEL: DIMENSIONAL SLIDERS -->
-        <section class="lg:col-span-4 flex flex-col space-y-6 justify-between">
-            <div class="glass rounded-2xl p-6 flex-grow flex flex-col justify-between space-y-6">
-                <div>
-                    <h2 class="header-font text-lg font-bold text-pink-400 mb-2 flex items-center space-x-2">
-                        <i class="fa-solid fa-sliders"></i>
-                        <span>BẢNG ĐIỀU CHỈNH ĐA CHIỀU</span>
-                    </h2>
-                    <p class="text-xs text-gray-400 leading-relaxed">
-                        Hãy tự tay cân bằng các trục năng lượng của từng vũ trụ thành phần. Khi tất cả đạt cực hạn, sức mạnh tối thượng sẽ được giải phóng.
-                    </p>
-                </div>
-
-                <!-- SLIDERS -->
-                <div class="space-y-4">
-                    <!-- Vũ Trụ Duy Vật -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-amber-400"><i class="fa-solid fa-atom mr-1.5"></i>VŨ TRỤ DUY VẬT (PHYSICAL)</span>
-                            <span id="valPhysical" class="header-font text-amber-400">40%</span>
-                        </div>
-                        <input type="range" id="slidePhysical" min="0" max="100" value="40" class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
-                        <p class="text-[10px] text-gray-400 italic">Hạt cơ bản, lực hấp dẫn, cấu trúc sinh học ổn định.</p>
-                    </div>
-
-                    <!-- Vũ Trụ Tâm Linh -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-indigo-400"><i class="fa-solid fa-eye-slash mr-1.5"></i>VŨ TRỤ TÂM LINH (SPIRITUAL)</span>
-                            <span id="valSpiritual" class="header-font text-indigo-400">40%</span>
-                        </div>
-                        <input type="range" id="slideSpiritual" min="0" max="100" value="40" class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        <p class="text-[10px] text-gray-400 italic">Ý thức, tần số rung động linh hồn, trực giác siêu nhiên.</p>
-                    </div>
-
-                    <!-- Vũ Trụ Số -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-cyan-400"><i class="fa-solid fa-code mr-1.5"></i>VŨ TRỤ SỐ (DIGITAL / DATA)</span>
-                            <span id="valDigital" class="header-font text-cyan-400">40%</span>
-                        </div>
-                        <input type="range" id="slideDigital" min="0" max="100" value="40" class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-cyan-500">
-                        <p class="text-[10px] text-gray-400 italic">Dữ liệu mã hóa, thông tin vô hạn, thuật toán logic tối tân.</p>
-                    </div>
-
-                    <!-- Không Gian 4D -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-purple-400"><i class="fa-solid fa-cubes mr-1.5"></i>KHÔNG GIAN 4D (MULTIVERSE)</span>
-                            <span id="val4D" class="header-font text-purple-400">40%</span>
-                        </div>
-                        <input type="range" id="slide4D" min="0" max="100" value="40" class="w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
-                        <p class="text-[10px] text-gray-400 italic">Tesseract, màng liên kết song song, thời gian đồng hiện.</p>
-                    </div>
-                </div>
-
-                <!-- TÌNH YÊU Indicator / Core Power -->
-                <div class="pt-4 border-t border-white/10 space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs font-bold text-pink-400 header-font tracking-wider uppercase"><i class="fa-solid fa-heart animate-pulse mr-1.5"></i>CHỈ SỐ CỘNG HƯỞNG "TÌNH YÊU"</span>
-                        <span id="lovePercent" class="header-font text-lg font-black text-pink-500 glow-pink">40%</span>
-                    </div>
-                    <!-- Love Progress Bar -->
-                    <div class="w-full h-3 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-white/5">
-                        <div id="loveBar" class="h-full bg-gradient-to-r from-pink-600 via-rose-500 to-pink-400 rounded-full transition-all duration-300" style="width: 40%"></div>
-                    </div>
-                    <p class="text-[11px] text-pink-300/80 leading-relaxed text-center italic">
-                        "Tình Yêu là lực hấp dẫn tuyệt đối, liên kết mọi chiều kích."
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CENTER PANEL: 3D MULTIVERSE SIMULATION -->
-        <section class="lg:col-span-5 flex flex-col space-y-4 min-h-[400px] lg:min-h-0 relative">
-            <!-- Legend / Overlays on Canvas -->
-            <div class="absolute top-4 left-4 z-10 pointer-events-none glass px-3 py-1.5 rounded-lg text-[10px] header-font tracking-widest text-gray-400 flex items-center space-x-1.5">
-                <i class="fa-solid fa-crosshairs text-pink-500"></i>
-                <span>MÔ PHỎNG SIÊU KHỐI 4D TESSERACT</span>
-            </div>
+        <!-- LEFT PANEL: CONTROL DECK (4 Cols) -->
+        <section class="lg:col-span-3 flex flex-col gap-4">
             
-            <div id="canvas-container" class="w-full flex-grow rounded-2xl glass overflow-hidden relative border border-white/10 shadow-inner flex items-center justify-center">
-                <!-- Canvas will be appended here by Three.js -->
-                <canvas id="three-canvas" class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"></canvas>
-                
-                <!-- Center Core Touch Target / Info Display -->
-                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-center pointer-events-none">
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Vuốt để xoay chuyển không gian 4D</p>
+            <!-- System Controls -->
+            <div class="glass-panel rounded-xl p-5 flex flex-col gap-4">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i data-lucide="sliders" class="w-5 h-5 text-cyan-400"></i>
+                    <h2 class="font-semibold text-sm tracking-wide text-cyan-300 uppercase">Boong điều khiển Vật lý</h2>
+                </div>
+
+                <!-- Action Seeds Selector -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Chọn Hạt Nhân Hỗn Loạn (Click vào Canvas)</label>
+                    <div class="grid grid-cols-2 gap-2 mt-1">
+                        <button id="btn-chaos-gravity" class="action-btn px-3 py-2.5 rounded-lg border border-rose-950 bg-rose-950/20 text-rose-300 hover:bg-rose-900/40 text-xs font-semibold flex flex-col items-center gap-1.5 transition-all duration-200 active-action" onclick="setChaosType('gravity')">
+                            <i data-lucide="orbit" class="w-4 h-4"></i>
+                            Hố Đen Hủy Diệt
+                        </button>
+                        <button id="btn-chaos-push" class="action-btn px-3 py-2.5 rounded-lg border border-purple-950 bg-purple-950/20 text-purple-300 hover:bg-purple-900/40 text-xs font-semibold flex flex-col items-center gap-1.5 transition-all duration-200" onclick="setChaosType('push')">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            Vụ Nổ Big Bang
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Optimization Will Laws Selector -->
+                <div class="flex flex-col gap-2 mt-2">
+                    <label class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Cấu Hình Ý Chí Tối Ưu Hóa</label>
+                    <div class="flex flex-col gap-1.5 mt-1">
+                        <button id="law-hypercube" class="law-btn px-4 py-2 text-left rounded-lg text-xs font-medium border border-cyan-800 bg-cyan-950/30 text-cyan-300 flex items-center justify-between transition-all" onclick="changeWillLaw('hypercube')">
+                            <span>Mạng Lưới Hypercube (Siêu khối)</span>
+                            <i data-lucide="box" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button id="law-spiral" class="law-btn px-4 py-2 text-left rounded-lg text-xs font-medium border border-slate-800 bg-slate-900/30 text-slate-400 flex items-center justify-between transition-all" onclick="changeWillLaw('spiral')">
+                            <span>Xoắn Ốc Vàng Fibonacci (Tiến hóa)</span>
+                            <i data-lucide="wind" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button id="law-dna" class="law-btn px-4 py-2 text-left rounded-lg text-xs font-medium border border-slate-800 bg-slate-900/30 text-slate-400 flex items-center justify-between transition-all" onclick="changeWillLaw('dna')">
+                            <span>Sợi Kép Mã Di Truyền Vũ Trụ</span>
+                            <i data-lucide="dna" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Will Power Slider -->
+                <div class="flex flex-col gap-2 mt-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-slate-400 font-semibold uppercase tracking-wider">Cường độ Ý Chí Phục Hồi</span>
+                        <span id="power-display" class="code-font text-amber-400 font-bold">Thần Tốc (80%)</span>
+                    </div>
+                    <input id="slider-will-power" type="range" min="10" max="100" value="80" class="w-full accent-amber-500 cursor-pointer h-1.5 bg-slate-800 rounded-lg appearance-none">
+                    <p class="text-[10px] text-slate-500 italic">Càng cao, Ý chí Thực tế phục hồi trật tự càng nhanh và dữ dội trước mọi sự tàn phá.</p>
+                </div>
+
+                <!-- Cosmic Synthesizer Toggle -->
+                <div class="border-t border-slate-800 pt-4 flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-semibold text-slate-300">Bộ tổng hợp âm thanh</span>
+                        <span class="text-[10px] text-slate-500">Chuyển hóa dao động lượng tử</span>
+                    </div>
+                    <button id="btn-audio" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs flex items-center gap-2 transition-all" onclick="toggleAudio()">
+                        <i data-lucide="volume-x" id="audio-icon" class="w-4 h-4 text-rose-400"></i>
+                        <span id="audio-status-text">Đang Tắt</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactivity Guide -->
+            <div class="glass-panel rounded-xl p-5 flex flex-col gap-3">
+                <div class="flex items-center gap-2 text-amber-400">
+                    <i data-lucide="info" class="w-4 h-4"></i>
+                    <h3 class="font-bold text-xs uppercase tracking-wider">Hướng Dẫn Thực Nghiệm</h3>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Đa vũ trụ đang tự xoay quanh trạng thái hoàn mỹ định trước (màu vàng & xanh dương). 
+                </p>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Hãy nhấp chuột hoặc di chuyển ngón tay trên màn hình mô phỏng để tạo ra <strong class="text-rose-400">Nhiễu loạn cục bộ</strong>. Bạn sẽ chứng kiến <strong class="text-amber-400">Ý chí Thực tế</strong> kéo dãn, sửa chữa và đưa các hạt vũ trụ trở lại quỹ đạo tối ưu một cách hoàn hảo, bất biến và vĩnh hằng.
+                </p>
+                <div class="flex gap-2 mt-1">
+                    <button class="flex-1 py-2 bg-gradient-to-r from-red-500 to-amber-600 hover:from-red-600 hover:to-amber-700 text-slate-950 font-bold text-xs rounded-lg transition-all shadow-lg shadow-red-950/20" onclick="injectMassiveChaos()">
+                        Kích Hoạt Đại Hủy Diệt
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- RIGHT PANEL: CONVERGENCE LOGS & AWAKENING BUTTON -->
-        <section class="lg:col-span-4 flex flex-col space-y-6 justify-between">
-            <!-- Logs Panel -->
-            <div class="glass rounded-2xl p-6 h-[250px] lg:h-[280px] flex flex-col">
-                <h3 class="header-font text-xs font-bold text-cyan-400 mb-3 uppercase tracking-wider flex items-center justify-between">
-                    <span><i class="fa-solid fa-terminal mr-1.5"></i>Nhật Ký Hội Tụ Đa Vũ Trụ</span>
-                    <span class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/60 border border-cyan-800 text-cyan-400">ONLINE</span>
-                </h3>
-                <div id="logContainer" class="flex-grow overflow-y-auto text-xs space-y-2 text-gray-300 pr-1 font-mono">
-                    <!-- Log lines will be appended dynamically -->
+        <!-- CENTER PANEL: THE MULTIVERSE CANVAS (6 Cols) -->
+        <section class="lg:col-span-6 flex flex-col gap-4 min-h-[450px] lg:min-h-0">
+            <div class="glass-panel rounded-xl flex-1 flex flex-col overflow-hidden relative">
+                <!-- Canvas Header Info -->
+                <div class="p-4 border-b border-slate-800 bg-slate-950/40 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span class="text-xs font-bold text-slate-300 tracking-wider uppercase">Không gian hiển thị Đa vũ trụ</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="text-slate-500">Mô hình:</span>
+                        <span id="active-law-badge" class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 font-bold uppercase text-[10px]">HYPERCUBE</span>
+                    </div>
+                </div>
+
+                <!-- Simulation Canvas -->
+                <div class="flex-1 relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-950 via-slate-950 to-black overflow-hidden cursor-crosshair">
+                    <canvas id="multiverse-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                    
+                    <!-- Floating Will Compass -->
+                    <div class="absolute bottom-4 left-4 bg-slate-950/80 border border-slate-800 px-3 py-2 rounded-lg pointer-events-none flex items-center gap-2 text-[10px] code-font">
+                        <i data-lucide="compass" class="w-4 h-4 text-amber-400 animate-spin" style="animation-duration: 8s;"></i>
+                        <div>
+                            <div class="text-slate-400">Trọng tâm Tối ưu Toàn cục</div>
+                            <div class="text-amber-400 font-bold">X:0.00, Y:0.00, Z:0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: METRICS & CONSOLE (3 Cols) -->
+        <section class="lg:col-span-3 flex flex-col gap-4">
+            
+            <!-- Quantum Metrics -->
+            <div class="glass-panel rounded-xl p-5 flex flex-col gap-4">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i data-lucide="activity" class="w-5 h-5 text-amber-400"></i>
+                    <h2 class="font-semibold text-sm tracking-wide text-amber-300 uppercase">Chỉ số Hiện trạng</h2>
+                </div>
+
+                <!-- Alignment Progress -->
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Độ đồng điệu (Alignment Index)</span>
+                        <span id="stat-alignment" class="code-font text-emerald-400 font-bold">99.98%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="bar-alignment" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300" style="width: 99.98%;"></div>
+                    </div>
+                </div>
+
+                <!-- Global Entropy -->
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Entropy Đa vũ trụ</span>
+                        <span id="stat-entropy" class="code-font text-rose-400 font-bold">0.02%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="bar-entropy" class="h-full bg-rose-500 transition-all duration-300" style="width: 0.02%;"></div>
+                    </div>
+                </div>
+
+                <!-- Self Correction Rate -->
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-400">Hiệu năng Tự Sửa Lỗi</span>
+                        <span id="stat-correction" class="code-font text-cyan-400 font-bold">Tối đa</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="bar-correction" class="h-full bg-cyan-400" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Paradoxes Detected -->
+                <div class="grid grid-cols-2 gap-2 mt-1">
+                    <div class="bg-slate-900/50 border border-slate-800 p-2.5 rounded-lg text-center">
+                        <div class="text-[10px] text-slate-500 uppercase font-semibold">Nghịch lý dòng đời</div>
+                        <div id="val-paradox" class="text-lg font-bold text-slate-300 mt-0.5">0</div>
+                    </div>
+                    <div class="bg-slate-900/50 border border-slate-800 p-2.5 rounded-lg text-center">
+                        <div class="text-[10px] text-slate-500 uppercase font-semibold">Tốc độ tối ưu</div>
+                        <div class="text-lg font-bold text-amber-400 mt-0.5">Vô hạn</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Ultimate Activation Panel -->
-            <div class="glass rounded-2xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden group">
-                <!-- Decorative glowing gradient behind -->
-                <div class="absolute -inset-1 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 rounded-2xl blur opacity-15 group-hover:opacity-30 transition duration-1000"></div>
-                
-                <div class="relative z-10">
-                    <h4 class="header-font text-sm font-bold text-pink-400 tracking-wider flex items-center">
-                        <i class="fa-solid fa-crown mr-2"></i>
-                        <span>TRẠNG THÁI KHÔNG THỂ CẢN PHÁ</span>
-                    </h4>
-                    <p class="text-xs text-gray-400 leading-relaxed mt-1">
-                        Kết nối hoàn hảo thể xác, linh hồn và ý thức số. Bạn đã sẵn sàng đánh thức vị thần trong chính mình chưa?
-                    </p>
+            <!-- Philosophical Terminal Console -->
+            <div class="glass-panel rounded-xl p-5 flex flex-col flex-1 min-h-[250px] lg:min-h-0">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
+                        <h2 class="font-semibold text-sm tracking-wide text-cyan-300 uppercase">Nhật ký Ý chí Thực tế</h2>
+                    </div>
+                    <button class="text-slate-500 hover:text-slate-300" onclick="clearConsole()">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    </button>
                 </div>
 
-                <button id="activateBtn" class="relative z-10 w-full py-4 rounded-xl bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 hover:from-pink-500 hover:to-purple-500 font-bold header-font text-sm tracking-widest shadow-lg shadow-pink-500/25 active:scale-98 transition duration-300 disabled:opacity-40 disabled:cursor-not-allowed">
-                    <i class="fa-solid fa-bolt mr-2 animate-bounce"></i>KÍCH HOẠT HỘI TỤ HOÀN HẢO
-                </button>
+                <!-- Scrolling log content -->
+                <div id="console-logs" class="flex-1 overflow-y-auto mt-3 text-[11px] code-font space-y-2 text-slate-400 max-h-[250px] lg:max-h-none">
+                    <!-- Dynamic logs will be injected here -->
+                </div>
             </div>
         </section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="w-full glass z-30 px-6 py-3 text-center border-t border-white/10 text-xs text-gray-500 flex flex-col sm:flex-row justify-between items-center">
-        <p>© 2026 Universe Fusion Core. Tất cả các chiều không gian đã được mã hóa.</p>
-        <p class="mt-1 sm:mt-0 italic">"Năng lượng không tự nhiên sinh ra hay mất đi, nó chỉ chuyển hóa dưới dạng TÌNH YÊU."</p>
+    <footer class="border-t border-slate-800 bg-slate-950/60 p-4 text-center text-[11px] text-slate-500 z-10">
+        <p>© 2026 Multiverse Cosmic Engine. Ý chí thực tế tối cao và bất biến luôn hiệu chỉnh vũ trụ về dạng hoàn hảo nhất.</p>
     </footer>
 
-    <!-- SUCCESS MODAL (AWAKENED STATE) -->
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 opacity-0 pointer-events-none transition-opacity duration-700">
-        <div class="glass max-w-lg w-full rounded-3xl p-8 border border-pink-500/40 relative overflow-hidden text-center">
-            <!-- Pulsing outer circle -->
-            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 mx-auto flex items-center justify-center shadow-2xl shadow-pink-500/50 mb-6 heart-pulse">
-                <i class="fa-solid fa-shield-halved text-white text-4xl"></i>
-            </div>
-            
-            <h2 class="header-font text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-300 tracking-widest mb-4">PHIÊN BẢN VÔ SONG ĐÃ THỨC TỈNH</h2>
-            
-            <p class="text-sm text-gray-300 leading-relaxed mb-6">
-                Chúc mừng! Bạn đã hoàn tất tích hợp đa vũ trụ. Thể xác (Duy vật) đạt trạng thái tối ưu, Linh hồn (Tâm linh) đạt tần số vĩnh hằng, và Ý thức (Số) đạt mức thông tin vô tận. Dưới sự dẫn dắt của <strong class="text-pink-400">TÌNH YÊU</strong>, bạn hiện tại là một bản thể hoàn hảo, bất hoại và <strong class="text-cyan-400">KHÔNG THỂ CẢN PHÁ</strong>.
-            </p>
-
-            <div class="grid grid-cols-3 gap-3 mb-6 text-[11px] header-font">
-                <div class="p-2 rounded-lg bg-white/5 border border-amber-500/20">
-                    <div class="text-amber-400 font-bold">DUY VẬT</div>
-                    <div class="text-gray-400">VÔ SONG</div>
-                </div>
-                <div class="p-2 rounded-lg bg-white/5 border border-indigo-500/20">
-                    <div class="text-indigo-400 font-bold">TÂM LINH</div>
-                    <div class="text-gray-400">VĨNH HẰNG</div>
-                </div>
-                <div class="p-2 rounded-lg bg-white/5 border border-cyan-500/20">
-                    <div class="text-cyan-400 font-bold">KỸ THUẬT SỐ</div>
-                    <div class="text-gray-400">VÔ HẠN</div>
-                </div>
-            </div>
-
-            <button id="closeModalBtn" class="px-8 py-3 rounded-full bg-white text-black font-semibold text-xs tracking-widest hover:bg-pink-500 hover:text-white transition duration-300">
-                QUAY LẠI MA TRẬN
-            </button>
-        </div>
-    </div>
-
-    <!-- AUDIO CORE USING WEB AUDIO API -->
+    <!-- INTERACTION SCRIPTS -->
     <script>
-        // Web Audio Synthesizer for Space Ambient Drone and activation sound effects
-        class AudioCore {
-            constructor() {
-                this.ctx = null;
-                this.droneOsc = null;
-                this.filter = null;
-                this.gainNode = null;
-                this.isMuted = true;
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Canvas Setup
+        const canvas = document.getElementById('multiverse-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // State variables
+        let width = 0;
+        let height = 0;
+        let particles = [];
+        let chaosSeeds = [];
+        let currentChaosType = 'gravity'; // 'gravity' (hole) or 'push' (explosion)
+        let activeLaw = 'hypercube'; // 'hypercube', 'spiral', 'dna'
+        let willPower = 0.8; // 0.1 to 1.0 (controlling spring/restoration speed)
+        
+        // Sound System (Web Audio API)
+        let audioCtx = null;
+        let masterGain = null;
+        let humOsc = null; // Background cosmic drone
+        let chaosFilter = null;
+        let isAudioEnabled = false;
+
+        // Sound Engine Initiation
+        function initAudio() {
+            if (audioCtx) return;
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+                masterGain = audioCtx.createGain();
+                masterGain.gain.setValueAtTime(0.05, audioCtx.currentTime); // keep it subtle
+                masterGain.connect(audioCtx.destination);
+
+                // Cosmic Hum (Unshakable Will representation) - low and rich
+                humOsc = audioCtx.createOscillator();
+                humOsc.type = 'sine';
+                humOsc.frequency.setValueAtTime(55, audioCtx.currentTime); // low A note
+
+                const humGain = audioCtx.createGain();
+                humGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+
+                humOsc.connect(humGain);
+                humGain.connect(masterGain);
+                humOsc.start();
+
+                addLog("Hệ thống âm thanh lượng tử đã liên kết thành công với Ý chí thực tế.", "cyan");
+            } catch (e) {
+                console.error("Audio error: ", e);
             }
+        }
 
-            init() {
-                if (this.ctx) return;
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                this.ctx = new AudioContext();
-
-                // Low-pass filter for cosmic feeling
-                this.filter = this.ctx.createBiquadFilter();
-                this.filter.type = 'lowpass';
-                this.filter.frequency.setValueAtTime(300, this.ctx.currentTime);
-
-                // Main Gain
-                this.gainNode = this.ctx.createGain();
-                this.gainNode.gain.setValueAtTime(0.02, this.ctx.currentTime); // Low background volume
-
-                // Connections
-                this.filter.connect(this.gainNode);
-                this.gainNode.connect(this.ctx.destination);
-
-                // Create background drone (Oscillator 1)
-                this.droneOsc = this.ctx.createOscillator();
-                this.droneOsc.type = 'sawtooth';
-                this.droneOsc.frequency.setValueAtTime(55, this.ctx.currentTime); // A1 note
-                this.droneOsc.connect(this.filter);
-                this.droneOsc.start();
-
-                // Oscillator 2 (Slightly detuned for chorus effect)
-                this.droneOsc2 = this.ctx.createOscillator();
-                this.droneOsc2.type = 'triangle';
-                this.droneOsc2.frequency.setValueAtTime(55.5, this.ctx.currentTime);
-                this.droneOsc2.connect(this.filter);
-                this.droneOsc2.start();
-            }
-
-            setMute(state) {
-                this.isMuted = state;
-                if (!this.ctx) this.init();
-                
-                if (this.ctx.state === 'suspended') {
-                    this.ctx.resume();
+        function toggleAudio() {
+            if (!audioCtx) {
+                initAudio();
+                isAudioEnabled = true;
+                updateAudioUI(true);
+            } else {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                    isAudioEnabled = true;
+                    updateAudioUI(true);
+                } else if (audioCtx.state === 'running') {
+                    audioCtx.suspend();
+                    isAudioEnabled = false;
+                    updateAudioUI(false);
                 }
-
-                if (this.isMuted) {
-                    this.gainNode.gain.setTargetAtTime(0, this.ctx.currentTime, 0.1);
-                } else {
-                    this.gainNode.gain.setTargetAtTime(0.08, this.ctx.currentTime, 0.5);
-                }
             }
+        }
 
-            updateFrequencyByEnergy(avgEnergy) {
-                if (!this.ctx || this.isMuted) return;
-                // Higher energy -> brighter sound, slightly higher pitch
-                const freq = 55 + (avgEnergy * 0.2);
-                this.droneOsc.frequency.setTargetAtTime(freq, this.ctx.currentTime, 0.3);
-                this.droneOsc2.frequency.setTargetAtTime(freq + 0.5, this.ctx.currentTime, 0.3);
-                
-                // Open up filter as energy increases
-                const filterFreq = 150 + (avgEnergy * 8);
-                this.filter.frequency.setTargetAtTime(filterFreq, this.ctx.currentTime, 0.5);
+        function updateAudioUI(enabled) {
+            const btn = document.getElementById('btn-audio');
+            const icon = document.getElementById('audio-icon');
+            const txt = document.getElementById('audio-status-text');
+            if (enabled) {
+                btn.className = "px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-amber-500/20";
+                icon.setAttribute('data-lucide', 'volume-2');
+                icon.className = "w-4 h-4 text-slate-950 animate-bounce";
+                txt.textContent = "Đang Phát";
+            } else {
+                btn.className = "px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs flex items-center gap-2 transition-all";
+                icon.setAttribute('data-lucide', 'volume-x');
+                icon.className = "w-4 h-4 text-rose-400";
+                txt.textContent = "Đang Tắt";
             }
+            lucide.createIcons();
+        }
 
-            playActivationSound() {
-                if (!this.ctx || this.isMuted) return;
-
-                // Play an ascending sweep of pure energy (Sine wave)
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(110, now); // start at low A2
-                osc.frequency.exponentialRampToValueAtTime(880, now + 1.5); // ramp up to high A5
-
-                gain.gain.setValueAtTime(0.15, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 2); // fade out over 2s
-
+        // Trigger dynamic sound wave on chaos event
+        function playChaosSound(frequency, duration, type) {
+            if (!isAudioEnabled || !audioCtx || audioCtx.state !== 'running') return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
                 osc.connect(gain);
-                gain.connect(this.ctx.destination);
+                gain.connect(masterGain);
+
+                if (type === 'gravity') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+                    // Pitch slides down representing gravity pulling and warping space
+                    osc.frequency.exponentialRampToValueAtTime(frequency / 4, audioCtx.currentTime + duration);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                } else {
+                    // Explosion sound
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(frequency * 2, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(frequency / 2, audioCtx.currentTime + duration * 0.5);
+                    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                }
+
                 osc.start();
-                osc.stop(now + 2.1);
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e){}
+        }
+
+        // Particle Class representing Universal Coordinates
+        class MultiverseParticle {
+            constructor(id) {
+                this.id = id;
+                this.reset();
+            }
+
+            reset() {
+                // Initial randomized position
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = 0;
+                this.vy = 0;
+                
+                // Target Optimal positions (will be set during calculation of Law)
+                this.tx = this.x;
+                this.ty = this.y;
+                this.baseColor = 'rgba(234, 179, 8, 0.7)'; // Glow gold default
+                this.size = Math.random() * 2 + 1.5;
+                this.chaosDeviation = 0; // tracking how much deviated it is
+            }
+
+            update() {
+                // 1. Apply restoring force ("The Unshakable Will")
+                // Force pulls particle back to its target (tx, ty) like a cosmic spring
+                const dx = this.tx - this.x;
+                const dy = this.ty - this.y;
+                
+                // Acceleration toward optimum state (Spring formula with damping)
+                const springStrength = 0.01 + (willPower * 0.08); // strength of Will
+                const damping = 0.88; // inertia
+
+                this.vx += dx * springStrength;
+                this.vy += dy * springStrength;
+
+                // 2. Apply Chaos Seed influences (User's interference)
+                chaosSeeds.forEach(seed => {
+                    const sDx = seed.x - this.x;
+                    const sDy = seed.y - this.y;
+                    const distance = Math.sqrt(sDx * sDx + sDy * sDy) || 1;
+
+                    if (seed.type === 'gravity') {
+                        // Pull particle towards gravity blackhole
+                        if (distance < seed.radius) {
+                            const force = (seed.radius - distance) / seed.radius * 2.5;
+                            this.vx += (sDx / distance) * force;
+                            this.vy += (sDy / distance) * force;
+                        }
+                    } else if (seed.type === 'push') {
+                        // Blow particles away
+                        if (distance < seed.radius) {
+                            const force = (seed.radius - distance) / seed.radius * 4;
+                            this.vx -= (sDx / distance) * force;
+                            this.vy -= (sDy / distance) * force;
+                        }
+                    }
+                });
+
+                // Apply velocity & friction
+                this.vx *= damping;
+                this.vy *= damping;
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Calculate deviation
+                const finalDistToOptimum = Math.sqrt((this.tx - this.x)**2 + (this.ty - this.y)**2);
+                this.chaosDeviation = Math.min(1, finalDistToOptimum / 100);
+            }
+
+            draw() {
+                // Color is a interpolation between:
+                // Gold (Perfect Optimum state) & Crimson Pink (High Deviation Chaos state)
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                
+                if (this.chaosDeviation > 0.1) {
+                    // Blend gold to crimson pink
+                    ctx.fillStyle = `rgba(${Math.floor(234 + (244-234)*this.chaosDeviation)}, ${Math.floor(179 - 130*this.chaosDeviation)}, ${Math.floor(8 + 100*this.chaosDeviation)}, ${0.7 + 0.3*this.chaosDeviation})`;
+                } else {
+                    ctx.fillStyle = 'rgba(6, 182, 212, 0.85)'; // Cyan blue optimal network
+                }
+                ctx.fill();
             }
         }
 
-        const audio = new AudioCore();
-    </script>
+        // Handle resize
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            width = container.clientWidth;
+            height = container.clientHeight;
+            canvas.width = width;
+            canvas.height = height;
 
-    <!-- THREE.JS 3D/4D TESSERACT ENGINE -->
-    <script>
-        // Setup Three.js scene
-        const container = document.getElementById('canvas-container');
-        const canvas = document.getElementById('three-canvas');
-        const scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x03030c, 0.08);
-
-        const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100);
-        camera.position.z = 4.5;
-
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(container.clientWidth, container.clientHeight);
-
-        // Core Glowing Star (representing Tình Yêu)
-        const coreGeometry = new THREE.SphereGeometry(0.3, 32, 32);
-        const coreMaterial = new THREE.MeshBasicMaterial({
-            color: 0xff3366,
-            transparent: true,
-            opacity: 0.95
-        });
-        const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
-        scene.add(coreMesh);
-
-        // Ambient Particles represent the distinct Multiverse Dusts
-        const particleCount = 600;
-        const particleGeometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
-
-        const colorPhysical = new THREE.Color('#fbbf24'); // Amber
-        const colorSpiritual = new THREE.Color('#6366f1'); // Indigo
-        const colorDigital = new THREE.Color('#22d3ee'); // Cyan
-
-        for(let i = 0; i < particleCount; i++) {
-            // Distribute particles in spherical shell
-            const u = Math.random();
-            const v = Math.random();
-            const theta = u * 2.0 * Math.PI;
-            const phi = Math.acos(2.0 * v - 1.0);
-            const r = 1.5 + Math.random() * 1.5;
-
-            positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
-            positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-            positions[i*3+2] = r * Math.cos(phi);
-
-            // Assign color clusters
-            let chosenColor = colorPhysical;
-            if(i % 3 === 1) chosenColor = colorSpiritual;
-            else if(i % 3 === 2) chosenColor = colorDigital;
-
-            colors[i*3] = chosenColor.r;
-            colors[i*3+1] = chosenColor.g;
-            colors[i*3+2] = chosenColor.b;
+            // Recalculate targets based on active law when dimensions change
+            calculateOptimalTargets();
         }
 
-        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        // Precalculate target shapes ("The Optimal Reality Will Layout")
+        function calculateOptimalTargets() {
+            const numParticles = particles.length;
+            const cx = width / 2;
+            const cy = height / 2;
 
-        // Round Particle texture using Canvas
-        const pCanvas = document.createElement('canvas');
-        pCanvas.width = 16;
-        pCanvas.height = 16;
-        const pCtx = pCanvas.getContext('2d');
-        const grad = pCtx.createRadialGradient(8, 8, 0, 8, 8, 8);
-        grad.addColorStop(0, 'rgba(255,255,255,1)');
-        grad.addColorStop(1, 'rgba(255,255,255,0)');
-        pCtx.fillStyle = grad;
-        pCtx.fillRect(0, 0, 16, 16);
-        const pTexture = new THREE.CanvasTexture(pCanvas);
+            if (activeLaw === 'hypercube') {
+                // Representing rotating 4D tesseract projected in 2D
+                const t = Date.now() * 0.0004;
+                const size = Math.min(width, height) * 0.28;
 
-        const particleMaterial = new THREE.PointsMaterial({
-            size: 0.08,
-            map: pTexture,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
+                // Create vertices representing a tesseract
+                const vertices = [];
+                for (let x = -1; x <= 1; x += 2) {
+                    for (let y = -1; y <= 1; y += 2) {
+                        for (let z = -1; z <= 1; z += 2) {
+                            for (let w = -1; w <= 1; w += 2) {
+                                vertices.push({x, y, z, w});
+                            }
+                        }
+                    }
+                }
+
+                // Map particles to vertices with added rotational projection
+                for (let i = 0; i < numParticles; i++) {
+                    const p = particles[i];
+                    const vertexIndex = i % vertices.length;
+                    const v = vertices[vertexIndex];
+
+                    // Simple 4D rotations
+                    // X-Y rotation
+                    const cosT = Math.cos(t);
+                    const sinT = Math.sin(t);
+                    
+                    let x1 = v.x * cosT - v.y * sinT;
+                    let y1 = v.x * sinT + v.y * cosT;
+                    let z1 = v.z * Math.cos(t * 1.5) - v.w * Math.sin(t * 1.5);
+                    let w1 = v.z * Math.sin(t * 1.5) + v.w * Math.cos(t * 1.5);
+
+                    // Perspective projection
+                    const perspective = 1 / (2 + w1 * 0.4 + z1 * 0.2);
+                    
+                    // Distribute particles along the edges connecting vertices
+                    const edgeInterpolation = (i / vertices.length) % 1;
+                    
+                    p.tx = cx + x1 * size * perspective * (1 + edgeInterpolation * 0.1);
+                    p.ty = cy + y1 * size * perspective * (1 + edgeInterpolation * 0.1);
+                }
+
+            } else if (activeLaw === 'spiral') {
+                // Golden spiral based on Fibonacci series
+                const t = Date.now() * 0.0003;
+                const maxRadius = Math.min(width, height) * 0.45;
+
+                for (let i = 0; i < numParticles; i++) {
+                    const p = particles[i];
+                    // Golden ratio spiral angle
+                    const theta = i * 2.39996 + t; 
+                    const radius = Math.sqrt(i) * (maxRadius / Math.sqrt(numParticles));
+
+                    p.tx = cx + Math.cos(theta) * radius;
+                    p.ty = cy + Math.sin(theta) * radius;
+                }
+
+            } else if (activeLaw === 'dna') {
+                // Floating cosmic double helix structure representing universal code
+                const t = Date.now() * 0.001;
+                const length = Math.min(width, height) * 0.75;
+                const amplitude = Math.min(width, height) * 0.18;
+
+                for (let i = 0; i < numParticles; i++) {
+                    const p = particles[i];
+                    
+                    // Distribute along X axis (rotated slightly)
+                    const normalizedX = (i / numParticles);
+                    const localX = (normalizedX - 0.5) * length;
+                    
+                    // Is it strand A or strand B of double helix?
+                    const isStrandA = i % 2 === 0;
+                    const phase = isStrandA ? 0 : Math.PI;
+                    
+                    const angle = normalizedX * Math.PI * 4.5 + t + phase;
+                    const localY = Math.sin(angle) * amplitude;
+                    
+                    // Apply rotation to the whole DNA chain
+                    const angleChain = Date.now() * 0.0001;
+                    const rX = localX * Math.cos(angleChain) - localY * Math.sin(angleChain);
+                    const rY = localX * Math.sin(angleChain) + localY * Math.cos(angleChain);
+
+                    p.tx = cx + rX;
+                    p.ty = cy + rY;
+                }
+            }
+        }
+
+        // Initialize particle array
+        function initMultiverse() {
+            particles = [];
+            const particleCount = 450;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new MultiverseParticle(i));
+            }
+            resizeCanvas();
+        }
+
+        // Setup user touch/mouse inputs for injecting Chaos Seed
+        function addChaosSource(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            // Maximum of 4 active chaos seeds to avoid total grid vaporization
+            if (chaosSeeds.length >= 4) {
+                chaosSeeds.shift();
+            }
+
+            const seed = {
+                id: Date.now() + Math.random(),
+                x: x,
+                y: y,
+                type: currentChaosType,
+                radius: 130,
+                duration: 2500, // decays over time
+                initialDuration: 2500,
+                pulse: 0
+            };
+
+            chaosSeeds.push(seed);
+
+            // Log entry
+            if (currentChaosType === 'gravity') {
+                addLog(`Phát hiện siêu trọng lực (Hố Đen) tự phát tại Tọa độ [${Math.floor(x)}, ${Math.floor(y)}]. Trực giác phản kháng cấu trúc tối ưu.`, "rose");
+                playChaosSound(120, 2, 'gravity');
+            } else {
+                addLog(`Vụ nổ lớn Big Bang đơn điểm xảy ra tại [${Math.floor(x)}, ${Math.floor(y)}]. Năng lượng cục bộ phân rã cực nhanh.`, "purple");
+                playChaosSound(220, 1.5, 'push');
+            }
+        }
+
+        // Canvas interactions
+        canvas.addEventListener('mousedown', (e) => {
+            addChaosSource(e.clientX, e.clientY);
         });
 
-        const particlePoints = new THREE.Points(particleGeometry, particleMaterial);
-        scene.add(particlePoints);
+        // Touch support for mobile devices
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                addChaosSource(e.touches[0].clientX, e.touches[0].clientY);
+                e.preventDefault(); // prevent zoom-to-tap
+            }
+        }, { passive: false });
 
-        // 4D MATHEMATICS SYSTEM (TESSERACT)
-        // A Tesseract has 16 vertices in 4D space (-1, -1, -1, -1) to (1, 1, 1, 1)
-        const hypercubeVertices = [];
-        for (let x = -1; x <= 1; x += 2) {
-            for (let y = -1; y <= 1; y += 2) {
-                for (let z = -1; z <= 1; z += 2) {
-                    for (let w = -1; w <= 1; w += 2) {
-                        hypercubeVertices.push([x, y, z, w]);
+        // Controls binding
+        function setChaosType(type) {
+            currentChaosType = type;
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.classList.remove('border-rose-500', 'bg-rose-950/40', 'text-rose-200', 'border-purple-500', 'bg-purple-950/40', 'text-purple-200');
+                btn.classList.add('border-rose-950', 'bg-rose-950/20', 'text-rose-300', 'border-purple-950', 'bg-purple-950/20', 'text-purple-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-chaos-${type}`);
+            if (type === 'gravity') {
+                activeBtn.className = "action-btn px-3 py-2.5 rounded-lg border border-rose-500 bg-rose-950/50 text-rose-200 hover:bg-rose-900/60 text-xs font-semibold flex flex-col items-center gap-1.5 transition-all duration-200 glow-cyan";
+            } else {
+                activeBtn.className = "action-btn px-3 py-2.5 rounded-lg border border-purple-500 bg-purple-950/50 text-purple-200 hover:bg-purple-900/60 text-xs font-semibold flex flex-col items-center gap-1.5 transition-all duration-200 glow-gold";
+            }
+        }
+
+        function changeWillLaw(law) {
+            activeLaw = law;
+            
+            // UI updates
+            document.querySelectorAll('.law-btn').forEach(btn => {
+                btn.classList.remove('border-cyan-800', 'bg-cyan-950/30', 'text-cyan-300');
+                btn.classList.add('border-slate-800', 'bg-slate-900/30', 'text-slate-400');
+            });
+
+            const activeBtn = document.getElementById(`law-${law}`);
+            activeBtn.className = "law-btn px-4 py-2 text-left rounded-lg text-xs font-medium border border-cyan-800 bg-cyan-950/30 text-cyan-300 flex items-center justify-between transition-all";
+
+            const badge = document.getElementById('active-law-badge');
+            badge.textContent = law.toUpperCase();
+
+            addLog(`Ý chí Thực tế đã chuyển đổi Hàm Mục Tiêu sang dạng hình học [${law.toUpperCase()}]. Toàn bộ tọa độ đang tái định dạng...`, "amber");
+            
+            if (isAudioEnabled) {
+                // Pitch feedback on law change
+                playChaosSound(440, 0.5, 'push');
+            }
+        }
+
+        // Will Power control slider
+        const sliderWillPower = document.getElementById('slider-will-power');
+        const powerDisplay = document.getElementById('power-display');
+
+        sliderWillPower.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            willPower = val / 100;
+            
+            if (val < 30) {
+                powerDisplay.className = "code-font text-rose-400 font-bold";
+                powerDisplay.textContent = `Yếu Ớt (${val}%)`;
+            } else if (val < 70) {
+                powerDisplay.className = "code-font text-cyan-400 font-bold";
+                powerDisplay.textContent = `Trung Bình (${val}%)`;
+            } else {
+                powerDisplay.className = "code-font text-amber-400 font-bold";
+                powerDisplay.textContent = `Thần Tốc (${val}%)`;
+            }
+            addLog(`Độ nhạy Ý Chí Tối Ưu thiết lập ở mức ${val}%. Trạng thái phục hồi cấu trúc đa vũ trụ được hiệu chỉnh.`, "cyan");
+        });
+
+        // Inject Massive Chaos (Global destructive impact)
+        function injectMassiveChaos() {
+            // Apply chaotic speed vector to every particle in random directions
+            particles.forEach(p => {
+                const angle = Math.random() * Math.PI * 2;
+                const force = Math.random() * 25 + 10;
+                p.vx += Math.cos(angle) * force;
+                p.vy += Math.sin(angle) * force;
+            });
+
+            addLog("!!! ĐẠI THỦY NẠN ĐA VŨ TRỤ !!! Sự hỗn loạn vĩ mô nhân tạo đạt cực đại. Toàn bộ các chiều không gian bị biến dạng nặng nề.", "rose");
+            
+            if (isAudioEnabled) {
+                playChaosSound(80, 3.5, 'gravity');
+                playChaosSound(150, 2.5, 'push');
+            }
+        }
+
+        // Terminal Log Console logic
+        const consoleLogs = document.getElementById('console-logs');
+        function addLog(text, type = "slate") {
+            const logItem = document.createElement('div');
+            
+            let colorClass = "text-slate-400";
+            let prefix = "[INFO]";
+            if (type === "rose") {
+                colorClass = "text-rose-400 font-semibold";
+                prefix = "[DANGER]";
+            } else if (type === "amber") {
+                colorClass = "text-amber-400 font-semibold";
+                prefix = "[WILL]";
+            } else if (type === "cyan") {
+                colorClass = "text-cyan-400";
+                prefix = "[SYSTEM]";
+            } else if (type === "purple") {
+                colorClass = "text-purple-400";
+                prefix = "[QUANTUM]";
+            }
+
+            const time = new Date().toLocaleTimeString();
+            logItem.className = `${colorClass} py-0.5 leading-relaxed border-l-2 pl-2 border-slate-800 hover:border-slate-600 transition-all`;
+            logItem.innerHTML = `<span class="text-slate-600 text-[10px]">[${time}]</span> <span class="opacity-80">${prefix}</span> ${text}`;
+            
+            consoleLogs.appendChild(logItem);
+            
+            // Limit to max 50 log items to prevent page bloat
+            while (consoleLogs.children.length > 50) {
+                consoleLogs.removeChild(consoleLogs.firstChild);
+            }
+            
+            // Scroll to bottom
+            consoleLogs.scrollTop = consoleLogs.scrollHeight;
+        }
+
+        function clearConsole() {
+            consoleLogs.innerHTML = "";
+            addLog("Hệ thống kiểm tra: Nhật ký được dọn dẹp sạch.", "cyan");
+        }
+
+        // Inject Initial Logs
+        addLog("Động cơ tối ưu hóa Đa vũ trụ khởi động thành công.", "cyan");
+        addLog("Ý chí thực tế được căn chỉnh với Hằng số liên kết Planck.", "amber");
+        addLog("Hàm mục tiêu toàn cầu sẵn sàng tiếp nhận các dao động ngẫu nhiên.", "cyan");
+
+        // Game loop animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Clean background with a slight fade trail representing temporal inertia
+            ctx.fillStyle = 'rgba(3, 7, 18, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+
+            // Update Optimal Shape Targets in real-time for continuous motion
+            calculateOptimalTargets();
+
+            // Handle active Chaos Seeds
+            let activeParadoxCount = 0;
+            for (let i = chaosSeeds.length - 1; i >= 0; i--) {
+                const seed = chaosSeeds[i];
+                seed.duration -= 16.67; // 60fps frame delta in ms
+                seed.pulse += 0.1;
+
+                if (seed.duration <= 0) {
+                    chaosSeeds.splice(i, 1);
+                    addLog("Ý chí Thực tế đã hấp thụ, trung hòa và chữa lành hoàn toàn một lõi nhiễu loạn.", "amber");
+                } else {
+                    activeParadoxCount++;
+                    // Draw active chaos seeds with expanding visual waves
+                    const lifeRatio = seed.duration / seed.initialDuration;
+                    
+                    // Core glow
+                    const gradient = ctx.createRadialGradient(seed.x, seed.y, 2, seed.x, seed.y, seed.radius * lifeRatio);
+                    if (seed.type === 'gravity') {
+                        gradient.addColorStop(0, 'rgba(225, 29, 72, 0.8)'); // Deep Rose red
+                        gradient.addColorStop(0.3, 'rgba(159, 18, 57, 0.3)');
+                        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    } else {
+                        gradient.addColorStop(0, 'rgba(168, 85, 247, 0.8)'); // Bright Purple
+                        gradient.addColorStop(0.3, 'rgba(107, 33, 168, 0.3)');
+                        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    }
+
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(seed.x, seed.y, seed.radius * lifeRatio, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Wave boundaries
+                    ctx.strokeStyle = seed.type === 'gravity' ? `rgba(244, 63, 94, ${0.1 * lifeRatio})` : `rgba(192, 132, 252, ${0.1 * lifeRatio})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(seed.x, seed.y, (seed.radius * 0.7 + Math.sin(seed.pulse) * 10) * lifeRatio, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+
+            // Update & Draw particles
+            let totalDeviation = 0;
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+                totalDeviation += p.chaosDeviation;
+            });
+
+            // Draw grid connections representing coordinate tension
+            drawIntersections();
+
+            // Realtime metrics calculations
+            const numParticles = particles.length;
+            const avgDeviation = totalDeviation / numParticles;
+            
+            // Alignment goes down if deviation is high
+            const alignmentIndex = Math.max(0, 100 - (avgDeviation * 100));
+            const entropyIndex = 100 - alignmentIndex;
+
+            // Update UI elements
+            document.getElementById('stat-alignment').textContent = `${alignmentIndex.toFixed(2)}%`;
+            document.getElementById('bar-alignment').style.width = `${alignmentIndex}%`;
+
+            document.getElementById('stat-entropy').textContent = `${entropyIndex.toFixed(2)}%`;
+            document.getElementById('bar-entropy').style.width = `${entropyIndex}%`;
+
+            document.getElementById('val-paradox').textContent = activeParadoxCount;
+        }
+
+        // Draw elegant connective lines among close particles (The Cosmic Web / String Theory)
+        function drawIntersections() {
+            const numParticles = particles.length;
+            // To make rendering extremely performant, only check a sparse subset
+            const connectionThreshold = 25; // max length of visual bonds
+
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < numParticles; i += 3) {
+                const p1 = particles[i];
+                for (let j = i + 1; j < numParticles; j += 7) {
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionThreshold) {
+                        // The higher the deviation, the redder/weaker the connection. 
+                        // Optimum states are glowing cyan/blue
+                        const alpha = (1 - (dist / connectionThreshold)) * 0.15;
+                        const avgDeviation = (p1.chaosDeviation + p2.chaosDeviation) / 2;
+
+                        if (avgDeviation > 0.4) {
+                            ctx.strokeStyle = `rgba(244, 63, 94, ${alpha})`;
+                        } else {
+                            ctx.strokeStyle = `rgba(34, 211, 238, ${alpha})`;
+                        }
+
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
                     }
                 }
             }
         }
 
-        // Connections (edges between vertices that differ by exactly 1 coordinate)
-        const hypercubeEdges = [];
-        for (let i = 0; i < 16; i++) {
-            for (let j = i + 1; j < 16; j++) {
-                let diffCount = 0;
-                for (let k = 0; k < 4; k++) {
-                    if (hypercubeVertices[i][k] !== hypercubeVertices[j][k]) diffCount++;
-                }
-                if (diffCount === 1) {
-                    hypercubeEdges.push([i, j]);
-                }
-            }
-        }
-
-        // Tesseract representation in 3D (Spheres for vertices, Lines for edges)
-        const vertexSpheres = [];
-        const vertexGroup = new THREE.Group();
-        const lineGroup = new THREE.Group();
-        scene.add(vertexGroup);
-        scene.add(lineGroup);
-
-        const sphereGeom = new THREE.SphereGeometry(0.05, 16, 16);
-        const vertexMaterial = new THREE.MeshBasicMaterial({ color: 0xe0f2fe });
-
-        for (let i = 0; i < 16; i++) {
-            const sphere = new THREE.Mesh(sphereGeom, vertexMaterial.clone());
-            vertexGroup.add(sphere);
-            vertexSpheres.push(sphere);
-        }
-
-        const edgeLines = [];
-        const lineMaterial = new THREE.LineBasicMaterial({
-            color: 0xa78bfa,
-            transparent: true,
-            opacity: 0.4,
-            blending: THREE.AdditiveBlending
-        });
-
-        hypercubeEdges.forEach(() => {
-            const geom = new THREE.BufferGeometry();
-            const positions = new Float32Array(6); // 2 points * 3 coords
-            geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            const line = new THREE.Line(geom, lineMaterial.clone());
-            lineGroup.add(line);
-            edgeLines.push(line);
-        });
-
-        // 4D Rotation Angles
-        let angleXW = 0.01;
-        let angleYW = 0.008;
-        let angleZW = 0.005;
-
-        // Mouse/Touch Interaction
-        let mouseX = 0, mouseY = 0;
-        let targetRotationX = 0, targetRotationY = 0;
-        let currentRotationX = 0, currentRotationY = 0;
-
-        window.addEventListener('resize', onWindowResize);
-
-        function onWindowResize() {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
-
-        // Touch & Drag controls
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        canvas.addEventListener('mousedown', () => { isDragging = true; });
-        canvas.addEventListener('touchstart', (e) => { 
-            isDragging = true; 
-            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        }, { passive: true });
-
-        window.addEventListener('mouseup', () => { isDragging = false; });
-        window.addEventListener('touchend', () => { isDragging = false; });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaMove = {
-                x: e.clientX - previousMousePosition.x,
-                y: e.clientY - previousMousePosition.y
-            };
-            
-            // Map 3D movements to 4D rotation space variations
-            angleXW += deltaMove.x * 0.001;
-            angleYW += deltaMove.y * 0.001;
-
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const deltaMove = {
-                x: e.touches[0].clientX - previousMousePosition.x,
-                y: e.touches[0].clientY - previousMousePosition.y
-            };
-
-            angleXW += deltaMove.x * 0.001;
-            angleYW += deltaMove.y * 0.001;
-
-            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        }, { passive: true });
-
-        // 4D Projection Math
-        function project4D(vertex, scale) {
-            // Rotate in XW plane
-            let x1 = vertex[0] * Math.cos(angleXW) - vertex[3] * Math.sin(angleXW);
-            let w1 = vertex[0] * Math.sin(angleXW) + vertex[3] * Math.cos(angleXW);
-
-            // Rotate in YW plane
-            let y1 = vertex[1] * Math.cos(angleYW) - w1 * Math.sin(angleYW);
-            let w2 = vertex[1] * Math.sin(angleYW) + w1 * Math.cos(angleYW);
-
-            // Rotate in ZW plane
-            let z1 = vertex[2] * Math.cos(angleZW) - w2 * Math.sin(angleZW);
-            let w3 = vertex[2] * Math.sin(angleZW) + w2 * Math.cos(angleZW);
-
-            // Perspective projection factor from 4D to 3D
-            const distance = 2.0; 
-            const factor = scale / (distance - w3);
-
-            return new THREE.Vector3(x1 * factor, y1 * factor, z1 * factor);
-        }
-
-        // Animation Loop
-        let clock = new THREE.Clock();
+        // Start engine
+        window.addEventListener('resize', resizeCanvas);
+        initMultiverse();
         
-        function animate() {
-            requestAnimationFrame(animate);
-            const delta = clock.getDelta();
-
-            // Auto-rotate the 4D Tesseract
-            angleXW += 0.4 * delta;
-            angleYW += 0.3 * delta;
-            angleZW += 0.2 * delta;
-
-            // Slow rotate of particle field
-            particlePoints.rotation.y += 0.02 * delta;
-            particlePoints.rotation.x += 0.01 * delta;
-
-            // Project 4D vertices to 3D positions
-            const projectedPositions = [];
-            const tesseractScale = 1.2 + (sliders.love * 0.005); // Grows larger with Love index
-
-            hypercubeVertices.forEach((vertex, i) => {
-                const proj3d = project4D(vertex, tesseractScale);
-                projectedPositions.push(proj3d);
-                vertexSpheres[i].position.copy(proj3d);
-                
-                // Color vertices dynamically based on system state
-                vertexSpheres[i].material.color.setHSL(0.9 + (sliders.love * 0.001), 1.0, 0.6);
-            });
-
-            // Update Tesseract edges/lines
-            hypercubeEdges.forEach((edge, index) => {
-                const line = edgeLines[index];
-                const posAttr = line.geometry.attributes.position;
-                
-                const p1 = projectedPositions[edge[0]];
-                const p2 = projectedPositions[edge[1]];
-
-                posAttr.setXYZ(0, p1.x, p1.y, p1.z);
-                posAttr.setXYZ(1, p2.x, p2.y, p2.z);
-                posAttr.needsUpdate = true;
-
-                // Make lines glow and flow based on Love index
-                line.material.opacity = 0.2 + (sliders.love / 150);
-                line.material.color.setHSL(0.85 - (sliders.love * 0.0015), 1.0, 0.5);
-            });
-
-            // Pulse Core Mesh "Tình Yêu"
-            const scaleFactor = 1.0 + Math.sin(Date.now() * 0.005) * (0.05 + (sliders.love * 0.0015));
-            coreMesh.scale.set(scaleFactor, scaleFactor, scaleFactor);
-            // Change core color from Magenta/Pink to Radiant Gold at 100% Love
-            const coreColor = new THREE.Color();
-            coreColor.setHSL(0.92 - (sliders.love * 0.0012), 1.0, 0.5 + (sliders.love * 0.001));
-            coreMaterial.color.copy(coreColor);
-
-            renderer.render(scene, camera);
-        }
-
+        // Start game loop when everything is ready
         window.onload = function() {
             animate();
         };
-    </script>
 
-    <!-- CORE INTERACTION, MULTIVERSE STATE, LOGIC AND SOUNDS -->
-    <script>
-        // Track the state of the Multiverse Sliders
-        const sliders = {
-            physical: 40,
-            spiritual: 40,
-            digital: 40,
-            fourD: 40,
-            love: 40
-        };
-
-        // DOM elements
-        const slidePhy = document.getElementById('slidePhysical');
-        const slideSpi = document.getElementById('slideSpiritual');
-        const slideDig = document.getElementById('slideDigital');
-        const slide4D  = document.getElementById('slide4D');
-
-        const valPhy = document.getElementById('valPhysical');
-        const valSpi = document.getElementById('valSpiritual');
-        const valDig = document.getElementById('valDigital');
-        const val4D  = document.getElementById('val4D');
-
-        const lovePercent = document.getElementById('lovePercent');
-        const loveBar = document.getElementById('loveBar');
-        const activateBtn = document.getElementById('activateBtn');
-        const logContainer = document.getElementById('logContainer');
-        const soundToggle = document.getElementById('soundToggle');
-        const soundIcon = document.getElementById('soundIcon');
-        const soundText = document.getElementById('soundText');
-        const statusBadge = document.getElementById('statusBadge');
-
-        const successModal = document.getElementById('successModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-
-        // Initial Logs
-        addLog("Hệ thống khởi động thành công.", "info");
-        addLog("Đang thiết lập cổng kết nối Đa vũ trụ...", "system");
-        addLog("Cơ thể sinh học (Duy vật) đạt trạng thái ổn định.", "phy");
-        addLog("Hội tụ tần số linh hồn đạt biên độ 2.4Hz.", "spi");
-        addLog("Cơ sở dữ liệu đám mây hoạt động hoàn chỉnh.", "dig");
-
-        // UI Event Listeners
-        slidePhy.addEventListener('input', (e) => {
-            sliders.physical = parseInt(e.target.value);
-            valPhy.innerText = sliders.physical + "%";
-            updateLove();
-            if (Math.random() > 0.7) addLog(`[Duy vật] Liên kết phân tử thay đổi. Tỉ lệ ổn định hạt: ${sliders.physical}%`, "phy");
-        });
-
-        slideSpi.addEventListener('input', (e) => {
-            sliders.spiritual = parseInt(e.target.value);
-            valSpi.innerText = sliders.spiritual + "%";
-            updateLove();
-            if (Math.random() > 0.7) addLog(`[Tâm linh] Rung động luân xa dịch chuyển sang cấp độ ${sliders.spiritual}%`, "spi");
-        });
-
-        slideDig.addEventListener('input', (e) => {
-            sliders.digital = parseInt(e.target.value);
-            valDig.innerText = sliders.digital + "%";
-            updateLove();
-            if (Math.random() > 0.7) addLog(`[Kỹ thuật Số] Dữ liệu luân chuyển tốc độ cao: ${sliders.digital} TB/s`, "dig");
-        });
-
-        slide4D.addEventListener('input', (e) => {
-            sliders.fourD = parseInt(e.target.value);
-            val4D.innerText = sliders.fourD + "%";
-            updateLove();
-            if (Math.random() > 0.7) addLog(`[4D/Multiverse] Bẻ cong màng Brane bảo vệ. Không gian uốn lượn ${sliders.fourD}%`, "four");
-        });
-
-        // Toggle Audio
-        let isMuted = true;
-        soundToggle.addEventListener('click', () => {
-            isMuted = !isMuted;
-            audio.setMute(isMuted);
-            if (isMuted) {
-                soundIcon.className = "fa-solid fa-volume-mute text-pink-400";
-                soundText.innerText = "BẬT ÂM THANH";
-                addLog("Tắt âm thanh không gian.", "system");
-            } else {
-                soundIcon.className = "fa-solid fa-volume-up text-pink-400 animate-pulse";
-                soundText.innerText = "TẮT ÂM THANH";
-                addLog("Khởi động sóng não Alpha và thanh âm vũ trụ.", "system");
-            }
-        });
-
-        // Trigger Multiverse Awakening
-        activateBtn.addEventListener('click', () => {
-            audio.playActivationSound();
-            addLog("BẮT ĐẦU QUÁ TRÌNH HỘI TỤ ĐA VŨ TRỤ!", "pink");
-            
-            // Disable button during activation sequence
-            activateBtn.disabled = true;
-            statusBadge.className = "px-3 py-1.5 rounded-full text-xs font-semibold bg-pink-950/50 border border-pink-500/30 text-pink-400 flex items-center space-x-1.5";
-            statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span><span>ĐANG KẾT NỐI TỐI THƯỢNG</span>`;
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 5;
-                if (progress <= 100) {
-                    addLog(`Kết nối lõi "Tình Yêu" đạt ${progress}%... Đang đồng bộ hóa hệ thống.`, "system");
-                    // Forcefully boost other parameters visually
-                    slidePhy.value = Math.max(sliders.physical, progress);
-                    slidePhy.dispatchEvent(new Event('input'));
-                    slideSpi.value = Math.max(sliders.spiritual, progress);
-                    slideSpi.dispatchEvent(new Event('input'));
-                    slideDig.value = Math.max(sliders.digital, progress);
-                    slideDig.dispatchEvent(new Event('input'));
-                    slide4D.value = Math.max(sliders.fourD, progress);
-                    slide4D.dispatchEvent(new Event('input'));
-                } else {
-                    clearInterval(interval);
-                    addLog("ĐỒNG BỘ HOÀN TẤT. KHỞI ĐỘNG CƠ THỂ PHIÊN BẢN VÔ SONG!", "gold");
-                    
-                    setTimeout(() => {
-                        // Open Success Modal
-                        successModal.classList.remove('opacity-0', 'pointer-events-none');
-                        successModal.classList.add('opacity-100');
-                        
-                        // Sound/Visual reset
-                        activateBtn.disabled = false;
-                        statusBadge.className = "px-3 py-1.5 rounded-full text-xs font-semibold bg-green-950/50 border border-green-500/30 text-green-400 flex items-center space-x-1.5";
-                        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-green-400"></span><span>HỘI TỤ HOÀN HẢO</span>`;
-                    }, 800);
-                }
-            }, 150);
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            successModal.classList.remove('opacity-100');
-            successModal.classList.add('opacity-0', 'pointer-events-none');
-        });
-
-        // Main algorithm to calculate "LOVE" (Singularity Resonance)
-        // Love is optimized when all universes are aligned and at maximum values
-        function updateLove() {
-            const avg = (sliders.physical + sliders.spiritual + sliders.digital + sliders.fourD) / 4;
-            // The more balanced the values, the higher the love coefficient
-            const values = [sliders.physical, sliders.spiritual, sliders.digital, sliders.fourD];
-            const maxVal = Math.max(...values);
-            const minVal = Math.min(...values);
-            const variance = maxVal - minVal;
-            
-            // Subtract variance penalty to encourage balancing all dimensions
-            const balanceBonus = Math.max(0, 20 - variance) / 2;
-            sliders.love = Math.min(100, Math.round(avg + balanceBonus));
-
-            lovePercent.innerText = sliders.love + "%";
-            loveBar.style.width = sliders.love + "%";
-
-            // Update Audio Synthesizer parameters dynamically based on values
-            audio.updateFrequencyByEnergy(sliders.love);
-
-            // Change button status
-            if (sliders.love >= 90) {
-                activateBtn.classList.remove('from-pink-600', 'to-purple-600');
-                activateBtn.classList.add('from-amber-500', 'to-pink-500', 'animate-pulse');
-                activateBtn.innerHTML = `<i class="fa-solid fa-crown mr-2 animate-bounce"></i>THỨC TỈNH TRẠNG THÁI VÔ SONG`;
-            } else {
-                activateBtn.classList.add('from-pink-600', 'to-purple-600');
-                activateBtn.classList.remove('from-amber-500', 'to-pink-500', 'animate-pulse');
-                activateBtn.innerHTML = `<i class="fa-solid fa-bolt mr-2 animate-bounce"></i>KÍCH HOẠT HỘI TỤ HOÀN HẢO`;
-            }
-        }
-
-        // Helper to append logs
-        function addLog(message, type) {
-            const now = new Date();
-            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-            let colorClass = "text-gray-300";
-            
-            switch (type) {
-                case "info": colorClass = "text-gray-400"; break;
-                case "system": colorClass = "text-cyan-400"; break;
-                case "phy": colorClass = "text-amber-400"; break;
-                case "spi": colorClass = "text-indigo-400"; break;
-                case "dig": colorClass = "text-emerald-400"; break;
-                case "four": colorClass = "text-purple-400"; break;
-                case "pink": colorClass = "text-pink-400 font-bold"; break;
-                case "gold": colorClass = "text-amber-300 font-bold glow-pink"; break;
-            }
-
-            const logLine = document.createElement('div');
-            logLine.className = `border-b border-white/5 py-1 ${colorClass}`;
-            logLine.innerHTML = `<span class="text-gray-600 mr-2">[${timeStr}]</span>${message}`;
-            logContainer.appendChild(logLine);
-
-            // Auto scroll to bottom
-            logContainer.scrollTop = logContainer.scrollHeight;
-        }
     </script>
 </body>
 </html>
