@@ -1,0 +1,762 @@
+```html
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hệ Thống Tự Cập Nhật Đa Vũ Trụ Tự Động - v10.0.0</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & Lucide Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #020617;
+    }
+    .orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+    /* Glow Effects */
+    .glow-cyan {
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+    }
+    .glow-amber {
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+    }
+    /* Grid system background */
+    .space-grid {
+      background-image: 
+        linear-gradient(rgba(15, 23, 42, 0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.6) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    /* Radar Scan Sweep Line */
+    @keyframes radar-sweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .radar-sweep-line {
+      transform-origin: center;
+      animation: radar-sweep 12s linear infinite;
+    }
+    /* Custom Scrollbar */
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(6, 182, 212, 0.3);
+      border-radius: 99px;
+    }
+  </style>
+</head>
+<body class="space-grid text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- Header -->
+  <header class="border-b border-cyan-950/70 bg-slate-950/90 backdrop-blur-md sticky top-0 z-50 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-600 to-amber-500 flex items-center justify-center glow-cyan animate-pulse">
+            <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
+          </div>
+          <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-slate-950 animate-ping"></span>
+        </div>
+        <div>
+          <h1 class="orbitron text-lg sm:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-amber-400">
+            AUTO-UPDATE CORES
+          </h1>
+          <p class="text-[10px] text-cyan-400/90 uppercase tracking-widest font-bold">Chế Độ Tự Động Hóa Không Can Thiệp - Đa Vũ Trụ v10.0.0</p>
+        </div>
+      </div>
+
+      <!-- Live status tags -->
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="px-3 py-1.5 rounded-lg bg-emerald-950/50 border border-emerald-500/30 text-xs flex items-center gap-2 text-emerald-400 font-bold glow-emerald/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+          <span>HỆ THỐNG: TỰ ĐỘNG CHẠY</span>
+        </div>
+        <button id="soundToggle" onclick="toggleAudio()" class="px-3 py-1.5 rounded-lg border border-slate-800 hover:border-cyan-500/50 bg-slate-900/80 transition-all flex items-center gap-2 text-xs text-slate-400 hover:text-cyan-400">
+          <i data-lucide="volume-2" id="soundIcon" class="w-4 h-4"></i>
+          <span id="soundText">Bật Âm Thanh</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Space Grid Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- LEFT PANEL: Auto-pilot Statistics & Sync Status (4 Columns) -->
+    <section class="lg:col-span-4 flex flex-col gap-6">
+      
+      <!-- Live Sync Monitor -->
+      <div class="bg-slate-950/95 border border-slate-900 rounded-2xl p-5 glow-cyan/10 backdrop-blur-xl relative overflow-hidden">
+        <div class="absolute -top-10 -left-10 w-28 h-28 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="orbitron text-xs font-bold text-cyan-400 tracking-wider uppercase flex items-center gap-2">
+            <i data-lucide="activity" class="w-4 h-4 animate-pulse"></i> TIẾN TRÌNH ĐỒNG BỘ LIÊN TỤC
+          </h2>
+          <span class="px-2 py-0.5 rounded text-[9px] bg-cyan-500/10 text-cyan-400 font-mono font-bold animate-pulse">ACTIVE</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl relative">
+            <span class="text-[10px] text-slate-500 block uppercase font-semibold">Tần suất quét</span>
+            <span class="text-xl font-bold orbitron text-slate-200">2.5s / lần</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl">
+            <span class="text-[10px] text-slate-500 block uppercase font-semibold">Chỉ số ổn định chung</span>
+            <span class="text-xl font-bold orbitron text-emerald-400" id="globalStability">98.4%</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl">
+            <span class="text-[10px] text-slate-500 block uppercase font-semibold">Vũ trụ đã nạp</span>
+            <span class="text-xl font-bold orbitron text-purple-400" id="universeCount">5</span>
+          </div>
+          <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl">
+            <span class="text-[10px] text-slate-500 block uppercase font-semibold">Bản vá tiếp theo</span>
+            <span class="text-xl font-bold orbitron text-amber-400" id="nextPatchIn">5s</span>
+          </div>
+        </div>
+
+        <!-- Automatic Progress Meter -->
+        <div class="mt-5 pt-4 border-t border-slate-900">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin text-cyan-400"></i> Tiến trình chu kỳ vĩ mô:
+            </span>
+            <span class="font-bold text-cyan-400 orbitron" id="macroProgress">24%</span>
+          </div>
+          <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800/60 p-[1px]">
+            <div id="macroProgressBar" class="h-full bg-gradient-to-r from-cyan-500 via-purple-600 to-amber-500 rounded-full transition-all duration-300" style="width: 24%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Indicator: Auto-pilot System Status -->
+      <div class="bg-gradient-to-br from-slate-950 via-slate-950 to-slate-900 border border-slate-900 rounded-2xl p-5 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+            <i data-lucide="eye" class="w-4 h-4 text-amber-400 animate-pulse"></i>
+          </div>
+          <div>
+            <h3 class="orbitron text-xs font-bold text-amber-400 uppercase tracking-wider">Hệ thống Trí Tuệ Tự Hành</h3>
+            <p class="text-[10px] text-slate-400">Đang quét, tự phát hiện dị thường và tự vá lỗi.</p>
+          </div>
+        </div>
+
+        <div class="space-y-2 mt-4 text-xs">
+          <div class="flex items-center justify-between p-2 rounded bg-slate-900/40 border border-slate-800/50">
+            <span class="text-slate-400">Trạng thái Auto-Pilot</span>
+            <span class="text-emerald-400 font-bold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ĐANG CHẠY
+            </span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded bg-slate-900/40 border border-slate-800/50">
+            <span class="text-slate-400">Mô hình AI điều hành</span>
+            <span class="text-cyan-400 font-bold">Gemini 2.5 Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Live Output -->
+      <div class="bg-slate-950/95 border border-slate-900 rounded-2xl p-5 flex-grow flex flex-col min-h-[220px]">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-xs text-cyan-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="terminal" class="w-4 h-4"></i> Nhật Ký Cập Nhật Thực Thời
+          </span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        </div>
+        
+        <!-- Live Terminal Stream -->
+        <div id="terminalLogs" class="flex-grow bg-slate-900/30 border border-slate-900/60 p-4 rounded-xl text-[11px] text-slate-300 space-y-2.5 overflow-y-auto max-h-[260px] font-mono custom-scroll">
+          <div class="text-slate-500">[00:00:00] Khởi tạo Hệ Thống Giám Sát Không Can Thiệp...</div>
+          <div class="text-cyan-400">[HỆ THỐNG] Chế độ Auto-Pilot v10.0.0 đã kích hoạt thành công.</div>
+          <div class="text-emerald-400">[SUCC] Đã hoàn thành nạp dòng chảy vật chất thời gian.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CENTER PANEL: Interactive Canvas with Automatic Radar (5 Columns) -->
+    <section class="lg:col-span-5 flex flex-col gap-6">
+      
+      <!-- Interactive Map Panel -->
+      <div class="bg-slate-950/95 border border-slate-900 rounded-2xl p-4 backdrop-blur-xl flex-grow flex flex-col relative min-h-[400px]">
+        
+        <div class="flex justify-between items-center mb-3">
+          <div>
+            <h2 class="orbitron text-xs font-semibold text-purple-400 tracking-wider uppercase flex items-center gap-2">
+              <i data-lucide="globe" class="w-4 h-4 text-purple-400"></i> Bản Đồ Đa Chiều Radar Tự Động
+            </h2>
+            <p class="text-[10px] text-slate-400">Tia quét tự động tìm lỗi entropy & cập nhật không gian</p>
+          </div>
+          <span class="text-[9px] text-slate-400 border border-slate-800 rounded px-2 py-0.5 uppercase tracking-widest font-mono">SCANNING ACTIVE</span>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="relative flex-grow bg-slate-900/20 border border-slate-900 rounded-xl overflow-hidden min-h-[300px]">
+          <canvas id="universeCanvas" class="absolute inset-0 w-full h-full"></canvas>
+          
+          <!-- Auto-Selected Universe Detail HUD Overlay -->
+          <div id="selectedUniverseOverlay" class="absolute bottom-4 left-4 right-4 bg-slate-950/95 border border-cyan-500/30 p-4 rounded-xl text-xs glow-cyan/10 animate-fade-in">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-bold uppercase tracking-wider block w-max mb-1">Mục tiêu đang quét</span>
+                <h4 id="selName" class="font-bold text-slate-100 orbitron text-sm">Vũ Trụ Gốc</h4>
+                <p id="selId" class="text-[10px] text-slate-500">ID: u-616</p>
+              </div>
+              <span id="selStability" class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-400 font-bold">98% Ổn Định</span>
+            </div>
+            <p id="selDesc" class="text-slate-300 text-[11px] leading-relaxed mb-3">Thông số vật lý cơ bản với sự phân bổ trọng lực tối ưu, chưa phát hiện biến dạng không thời gian nào.</p>
+            <div class="flex justify-between items-center border-t border-slate-900 pt-3 text-[10px] text-slate-400">
+              <span>Hằng số: <strong id="selPhysics" class="text-cyan-400 font-mono">G = 6.674e-11</strong></span>
+              <span>Phiên bản: <strong id="selVersion" class="text-purple-400 font-mono">Latest</strong></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RIGHT PANEL: Automated Cosmic Genesis & Universe Directory (3 Columns) -->
+    <section class="lg:col-span-3 flex flex-col gap-6">
+
+      <!-- AI Universe Auto-Genesis State -->
+      <div class="bg-slate-950/95 border border-slate-900 rounded-2xl p-5 glow-purple/5 backdrop-blur-xl flex flex-col gap-4 relative overflow-hidden">
+        <div class="absolute -bottom-10 -right-10 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl"></div>
+        <div>
+          <h2 class="orbitron text-xs font-semibold text-purple-400 tracking-wider uppercase flex items-center gap-2">
+            <i data-lucide="wand2" class="w-4 h-4 text-purple-400"></i> Tự Khởi Tạo Thiên Hà Mới
+          </h2>
+          <p class="text-[10px] text-slate-400 mt-1">Định kỳ, hệ thống sử dụng thuật toán AI tự xây dựng thêm cấu trúc vũ trụ bất ngờ.</p>
+        </div>
+
+        <div class="space-y-3 bg-slate-900/40 p-3 rounded-xl border border-slate-800/80">
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 bg-purple-500 rounded-full animate-ping"></div>
+            <span class="text-[10px] text-slate-300 font-medium font-mono uppercase">Tiến độ AI dệt không gian:</span>
+          </div>
+          <!-- Progress bar of auto genesis -->
+          <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden p-[1px] border border-slate-800">
+            <div id="aiGeneProgress" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="aiStatusText" class="text-[9px] text-purple-300 italic">Đang phân tích xu hướng mật độ vật chất tối...</p>
+        </div>
+
+        <!-- System Settings override (just in case they want manual click) -->
+        <div class="border-t border-slate-900 pt-3">
+          <button onclick="triggerImmediateAutoGenesis()" class="w-full py-2 px-3 rounded-lg bg-slate-900/80 hover:bg-purple-950/40 hover:text-purple-300 border border-slate-800 hover:border-purple-500/40 font-bold text-[10px] uppercase text-slate-400 flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span>Tự Tạo Ngay Lập Tức</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Universe Directory -->
+      <div class="bg-slate-950/95 border border-slate-900 rounded-2xl p-4 flex-grow flex flex-col max-h-[420px]">
+        <h2 class="orbitron text-xs font-semibold text-slate-400 tracking-wider uppercase mb-3 flex items-center gap-2">
+          <i data-lucide="folder-git" class="w-4 h-4"></i> Danh Mục Vũ Trụ Đã Đăng Ký
+        </h2>
+        
+        <!-- Search and List container -->
+        <div class="flex-grow overflow-y-auto space-y-2 pr-1 custom-scroll" id="universeListContainer">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-950/90 bg-slate-950/95 py-4 px-4 text-center text-xs text-slate-500 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+      <span>Trạm Vận Hành Hệ Thống Đa Vũ Trụ Lượng Tử Phi Tập Trung © 2026.</span>
+      <div class="flex items-center gap-4">
+        <span class="text-[10px] text-emerald-500 font-bold">● PHIÊN BẢN MỚI NHẤT ĐÃ ĐỒNG BỘ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SYSTEM AUTOMATION CORE ENGINE -->
+  <script>
+    // Audio engine configuration
+    let audioCtx = null;
+    let soundEnabled = false;
+    const apiKey = ""; // Injected dynamically at runtime
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'multiverse-auto-engine';
+
+    // Seed universes
+    let universes = [
+      { id: 'u-616', name: 'Earth-616 (Vũ Trụ Gốc)', x: 150, y: 150, size: 10, color: '#06b6d4', stability: 98, physics: 'G = 6.674e-11', desc: 'Hệ vật lý tiêu chuẩn, lực hút bền vững và chu trình lượng tử hoàn hảo. Hiện tại cực kỳ an toàn.', ver: 'v12.0.1' },
+      { id: 'u-1610', name: 'Earth-1610 (Tối Thượng)', x: 260, y: 100, size: 8, color: '#a855f7', stability: 82, physics: 'G = 6.891e-11', desc: 'Có sự biến thiên nhẹ về khối lượng hạt hạ nguyên tử. Các hố đen vi mô thỉnh thoảng hình thành.', ver: 'v11.9.4' },
+      { id: 'u-818', name: 'Vũ Trụ Máy Móc', x: 120, y: 250, size: 7, color: '#f59e0b', stability: 91, physics: 'Quantum Spin = 2.0', desc: 'Các thực thể ở đây liên kết cơ học và trường điện từ đóng vai trò thay thế lực hấp dẫn.', ver: 'v10.5.2' },
+      { id: 'u-099', name: 'Không Gian Phản Vật Chất', x: 340, y: 240, size: 9, color: '#ef4444', stability: 68, physics: 'Charge = Inverted', desc: 'Đầy rẫy năng lượng phân rã tự do. Đang ở rìa giới hạn của hiện tượng sụp đổ chân không lượng tử.', ver: 'v8.4.1' },
+      { id: 'u-777', name: 'Dòng Thời Gian Magic-777', x: 380, y: 120, size: 6, color: '#10b981', stability: 99, physics: 'Hằng số Entropy = 0.0', desc: 'Một thế giới hoàn mỹ không chịu ảnh hưởng bởi sự gia tăng entropy. Sự sống vĩnh hằng.', ver: 'v13.0.0' }
+    ];
+
+    let selectedUniverse = universes[0];
+
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Canvas Setup
+    const canvas = document.getElementById('universeCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width;
+    let height = canvas.height;
+
+    function resizeCanvas() {
+      const rect = canvas.parentNode.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      width = canvas.width;
+      height = canvas.height;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 100);
+
+    // Audio functions
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function toggleAudio() {
+      initAudio();
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundToggle');
+      const text = document.getElementById('soundText');
+      const icon = document.getElementById('soundIcon');
+      
+      if (soundEnabled) {
+        text.innerText = "Tắt Âm Thanh";
+        btn.classList.add('border-cyan-500', 'text-cyan-400');
+        icon.setAttribute('data-lucide', 'volume-x');
+        playSound(600, 'sine', 0.15);
+      } else {
+        text.innerText = "Bật Âm Thanh";
+        btn.classList.remove('border-cyan-500', 'text-cyan-400');
+        icon.setAttribute('data-lucide', 'volume-2');
+      }
+      lucide.createIcons();
+    }
+
+    function playSound(freq, type = 'sine', duration = 0.2) {
+      if (!soundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.error("Audio error: ", e);
+      }
+    }
+
+    // Populate Universe List in UI
+    function populateDirectory() {
+      const container = document.getElementById('universeListContainer');
+      container.innerHTML = '';
+
+      universes.forEach(uni => {
+        const isSelected = selectedUniverse && selectedUniverse.id === uni.id;
+        const item = document.createElement('div');
+        item.className = `p-3 rounded-xl border text-xs cursor-pointer transition-all ${isSelected ? 'bg-cyan-950/35 border-cyan-500/80 glow-cyan/10' : 'bg-slate-900/40 border-slate-800/60 hover:border-slate-700'}`;
+        item.onclick = () => {
+          selectUniverse(uni);
+          playSound(440, 'triangle', 0.1);
+        };
+
+        item.innerHTML = `
+          <div class="flex justify-between items-center font-semibold mb-1">
+            <span class="orbitron truncate text-slate-100" style="color: ${uni.color}">${uni.name}</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded font-mono ${uni.stability > 80 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}">${uni.stability}%</span>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-400">
+            <span>Phiên bản: <strong class="text-purple-400 font-mono font-medium">${uni.ver}</strong></span>
+            <span>Ổn định...</span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      // Update counters
+      document.getElementById('universeCount').innerText = universes.length;
+      
+      const avgStability = Math.round(universes.reduce((acc, curr) => acc + curr.stability, 0) / universes.length);
+      document.getElementById('globalStability').innerText = `${avgStability}%`;
+    }
+
+    function selectUniverse(uni) {
+      selectedUniverse = uni;
+      populateDirectory();
+      
+      const overlay = document.getElementById('selectedUniverseOverlay');
+      overlay.classList.remove('hidden');
+      document.getElementById('selName').innerText = uni.name;
+      document.getElementById('selId').innerText = `ID: ${uni.id}`;
+      document.getElementById('selDesc').innerText = uni.desc;
+      document.getElementById('selPhysics').innerText = uni.physics;
+      document.getElementById('selVersion').innerText = uni.ver;
+
+      const stabBadge = document.getElementById('selStability');
+      stabBadge.innerText = `${uni.stability}% Ổn Định`;
+      if (uni.stability > 80) {
+        stabBadge.className = "px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] text-emerald-400 font-bold";
+      } else {
+        stabBadge.className = "px-1.5 py-0.5 rounded bg-rose-500/10 border border-rose-500/30 text-[10px] text-rose-400 font-bold";
+      }
+    }
+
+    function log(message, type = 'info') {
+      const container = document.getElementById('terminalLogs');
+      const time = new Date().toLocaleTimeString();
+      let colorClass = 'text-slate-400';
+      let tag = '[INFO]';
+
+      if (type === 'success') {
+        colorClass = 'text-emerald-400';
+        tag = '[SUCC]';
+      } else if (type === 'warn') {
+        colorClass = 'text-amber-400';
+        tag = '[WARN]';
+      } else if (type === 'error') {
+        colorClass = 'text-rose-500';
+        tag = '[FAIL]';
+      }
+
+      const logNode = document.createElement('div');
+      logNode.className = colorClass;
+      logNode.innerHTML = `<span class="text-slate-500">[${time}]</span> ${tag} ${message}`;
+      container.appendChild(logNode);
+      container.scrollTop = container.scrollHeight;
+
+      // Keep logs to a readable maximum limit
+      while (container.childNodes.length > 30) {
+        container.removeChild(container.firstChild);
+      }
+    }
+
+    // RADAR DRAWING & SCAN LOOP
+    let radarAngle = 0;
+    let particlePulse = 0;
+
+    function drawMap() {
+      ctx.clearRect(0, 0, width, height);
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const maxRadius = Math.max(width, height) * 0.7;
+
+      // Draw background circular radar grids
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.05)';
+      ctx.lineWidth = 1;
+      for (let r = 50; r < maxRadius; r += 50) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Draw sweeping radar beam line
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      const sweepX = centerX + Math.cos(radarAngle) * maxRadius;
+      const sweepY = centerY + Math.sin(radarAngle) * maxRadius;
+      ctx.lineTo(sweepX, sweepY);
+      
+      // Radar gradient stroke
+      const gradient = ctx.createLinearGradient(centerX, centerY, sweepX, sweepY);
+      gradient.addColorStop(0, 'rgba(6, 182, 212, 0.3)');
+      gradient.addColorStop(1, 'rgba(6, 182, 212, 0)');
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Draw connections between node elements
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.08)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < universes.length; i++) {
+        for (let j = i + 1; j < universes.length; j++) {
+          ctx.beginPath();
+          ctx.moveTo(universes[i].x * (width / 500), universes[i].y * (height / 350));
+          ctx.lineTo(universes[j].x * (width / 500), universes[j].y * (height / 350));
+          ctx.stroke();
+        }
+      }
+
+      // Draw active nodes
+      universes.forEach(uni => {
+        const nodeX = uni.x * (width / 500);
+        const nodeY = uni.y * (height / 350);
+
+        // Calculate angle between center and node to check if sweep intersects
+        const nodeAngle = Math.atan2(nodeY - centerY, nodeX - centerX);
+        let normalizedDiff = Math.abs(radarAngle - nodeAngle);
+        if (normalizedDiff > Math.PI) normalizedDiff = Math.PI * 2 - normalizedDiff;
+
+        // If radar sweeps over node, spark temporary glow & trigger automatic scan sound
+        if (normalizedDiff < 0.08) {
+          ctx.beginPath();
+          ctx.arc(nodeX, nodeY, uni.size + 15, 0, Math.PI * 2);
+          ctx.fillStyle = `${uni.color}44`;
+          ctx.fill();
+        }
+
+        // Draw selection highlight ring
+        if (selectedUniverse && selectedUniverse.id === uni.id) {
+          ctx.beginPath();
+          ctx.arc(nodeX, nodeY, uni.size + 10 + Math.sin(particlePulse * 0.15) * 3, 0, Math.PI * 2);
+          ctx.strokeStyle = `${uni.color}66`;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        // Base node glow pulse
+        ctx.beginPath();
+        ctx.arc(nodeX, nodeY, uni.size + 4 + Math.sin(particlePulse * 0.06) * 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `${uni.color}18`;
+        ctx.fill();
+
+        // Solid core
+        ctx.beginPath();
+        ctx.arc(nodeX, nodeY, uni.size, 0, Math.PI * 2);
+        ctx.fillStyle = uni.color;
+        ctx.shadowColor = uni.color;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0; // clear glow for other draws
+
+        // Text tag above node
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.font = '8px Fira Code';
+        ctx.textAlign = 'center';
+        ctx.fillText(uni.name.split(' ')[0], nodeX, nodeY - uni.size - 6);
+      });
+
+      // Update sweeping angles
+      radarAngle += 0.015;
+      if (radarAngle > Math.PI * 2) radarAngle -= Math.PI * 2;
+
+      particlePulse++;
+      requestAnimationFrame(drawMap);
+    }
+
+    // ----------------------------------------------------
+    // AUTOMATIC NO-INTERVENTION WORKFLOW (AUTO-PILOT)
+    // ----------------------------------------------------
+
+    let macroProgress = 0;
+    let nextPatchCounter = 5;
+    let aiGenesisProgress = 0;
+
+    // 1. Core State Loop: runs every 1 second
+    function startAutomatedIntervals() {
+      setInterval(() => {
+        // Decrease countdown to next patch
+        nextPatchCounter--;
+        if (nextPatchCounter <= 0) {
+          nextPatchCounter = Math.floor(Math.random() * 5) + 4; // Reset to random 4-8s
+          autoPatchDefects();
+        }
+        document.getElementById('nextPatchIn').innerText = `${nextPatchCounter}s`;
+
+        // Update Macro Cycle Progress bar
+        macroProgress += Math.floor(Math.random() * 4) + 2;
+        if (macroProgress >= 100) {
+          macroProgress = 0;
+          autoFullSync();
+        }
+        document.getElementById('macroProgress').innerText = `${macroProgress}%`;
+        document.getElementById('macroProgressBar').style.width = `${macroProgress}%`;
+
+        // Advance AI Auto-Genesis (self-creation of new universes)
+        aiGenesisProgress += Math.floor(Math.random() * 8) + 4;
+        if (aiGenesisProgress >= 100) {
+          aiGenesisProgress = 0;
+          triggerImmediateAutoGenesis();
+        }
+        document.getElementById('aiGeneProgress').style.width = `${aiGenesisProgress}%`;
+
+        // Simulate random stability fluctuations
+        simulateFluctuations();
+
+      }, 1000);
+    }
+
+    // 2. Simulate small cosmic entropy fluctuations
+    function simulateFluctuations() {
+      universes.forEach(uni => {
+        // Small chance to drop stability
+        if (Math.random() > 0.8) {
+          const loss = Math.floor(Math.random() * 4) + 1;
+          uni.stability = Math.max(40, uni.stability - loss);
+          if (uni.stability < 75) {
+            log(`Phát hiện dao động Entropy bất thường tại ${uni.name}!`, 'warn');
+            playSound(220, 'sawtooth', 0.2);
+          }
+        }
+      });
+      populateDirectory();
+    }
+
+    // 3. Auto Patch: Automatically detects low-stability universe and repairs it
+    function autoPatchDefects() {
+      // Find the least stable universe
+      const unstable = [...universes].sort((a, b) => a.stability - b.stability)[0];
+
+      if (unstable && unstable.stability < 90) {
+        const oldStability = unstable.stability;
+        unstable.stability = Math.min(100, unstable.stability + Math.floor(Math.random() * 15) + 10);
+        
+        // Auto-increment version build
+        const verParts = unstable.ver.slice(1).split('.');
+        verParts[2] = parseInt(verParts[2]) + 1;
+        unstable.ver = `v${verParts.join('.')}`;
+
+        log(`[Auto-Patch] Khôi phục thành công ${unstable.name}. Ổn định tăng từ ${oldStability}% lên ${unstable.stability}%. Đã tự nâng cấp lên ${unstable.ver}.`, 'success');
+        playSound(660, 'sine', 0.25);
+        selectUniverse(unstable);
+      } else {
+        // General check-up log if everything is secure
+        log('Hệ thống tự vá lỗi: Tất cả các dòng thời gian đang an toàn và được điều chỉnh tối ưu.', 'info');
+        playSound(440, 'sine', 0.1);
+      }
+    }
+
+    // 4. Fully Automated Major Multiverse Sync (Occurs when Macro loop reaches 100%)
+    function autoFullSync() {
+      log('--- KHỞI CHẠY CHU KỲ ĐỒNG BỘ MẠNG LƯỚI KHÔNG GIAN TOÀN PHẦN ---', 'info');
+      playSound(300, 'triangle', 0.4);
+
+      setTimeout(() => {
+        universes.forEach(uni => {
+          // Boost everything to optimal level
+          uni.stability = Math.min(100, uni.stability + 5);
+          // Auto-increment minor version
+          const verParts = uni.ver.slice(1).split('.');
+          verParts[1] = parseInt(verParts[1]) + 1;
+          verParts[2] = 0;
+          uni.ver = `v${verParts.join('.')}`;
+        });
+        log('Tự động vá hố đen vi mô, định hình trường hấp dẫn và phát hành phiên bản hạt nhân lượng tử đồng loạt.', 'success');
+        playSound(880, 'sine', 0.3);
+        populateDirectory();
+        if (selectedUniverse) selectUniverse(selectedUniverse);
+      }, 1000);
+    }
+
+    // 5. Automated AI Universe Generator
+    async function triggerImmediateAutoGenesis() {
+      document.getElementById('aiStatusText').innerText = "Đang dệt sơ đồ không-thời gian mới...";
+      log('Mạng thần kinh AI tự bắt mạch ý tưởng sáng tạo vũ trụ mới...', 'info');
+      playSound(500, 'sine', 0.3);
+
+      // Creative pool of templates for hands-free generation
+      const templates = [
+        { idea: "Vũ trụ pha lê trong suốt với trọng lực bẻ cong", color: "#ec4899" },
+        { idea: "Không gian nơi thời gian trôi ngược và con người sinh ra từ tro bụi", color: "#3b82f6" },
+        { idea: "Chiều không gian mà thực vật phát ra âm nhạc tần số cao", color: "#10b981" },
+        { idea: "Vũ trụ đầy sương mù lượng tử nơi mọi vật chất đều lơ lửng", color: "#f59e0b" },
+        { idea: "Thế giới của các hạt nguyên tử siêu lỏng và dòng thời gian vô cực", color: "#a855f7" }
+      ];
+
+      const selectedTemplate = templates[Math.floor(Math.random() * templates.length)];
+      const mockId = Math.floor(Math.random() * 899) + 101;
+
+      // Simulate API or automated generative data structure
+      setTimeout(() => {
+        const newUni = {
+          id: `u-${mockId}`,
+          name: `Earth-${mockId} (${selectedTemplate.idea.split(' ')[0]} Lượng Tử)`,
+          x: Math.floor(Math.random() * 340) + 80,
+          y: Math.floor(Math.random() * 230) + 60,
+          size: Math.floor(Math.random() * 4) + 6,
+          color: selectedTemplate.color,
+          stability: Math.floor(Math.random() * 20) + 80,
+          physics: `Gravity = ${Math.random().toFixed(2)}G`,
+          desc: `Vũ trụ tự tạo tự động: ${selectedTemplate.idea}. Sự phân tán hạt photon ổn định, không có xung đột lượng tử cục bộ.`,
+          ver: "v1.0.0"
+        };
+
+        // Prevent overflow of universe lists, keep the universe network tight
+        if (universes.length >= 8) {
+          const removed = universes.splice(2, 1)[0]; // Remove older sub-universe
+          log(`Đã gộp dòng chảy thời gian của ${removed.name} vào lõi gốc để giải phóng entropy.`, 'warn');
+        }
+
+        universes.push(newUni);
+        populateDirectory();
+        selectUniverse(newUni);
+        
+        log(`[Auto-Genesis] Đã phóng thích một thực tại mới thành công: ${newUni.name}`, 'success');
+        playSound(1000, 'sine', 0.4);
+        
+        document.getElementById('aiStatusText').innerText = "Vũ trụ đã nạp thành công! Đang quét luồng dữ liệu tiếp theo...";
+      }, 1500);
+    }
+
+    // Canvas click detection still allowed if user wishes to inspect
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+
+      let found = null;
+      universes.forEach(uni => {
+        const scaledX = uni.x * (width / 500);
+        const scaledY = uni.y * (height / 350);
+        const dist = Math.hypot(clickX - scaledX, clickY - scaledY);
+        if (dist < uni.size + 12) {
+          found = uni;
+        }
+      });
+
+      if (found) {
+        selectUniverse(found);
+        playSound(520, 'triangle', 0.15);
+      }
+    });
+
+    // Bootstrapping App
+    window.onload = function() {
+      resizeCanvas();
+      populateDirectory();
+      selectUniverse(universes[0]);
+      
+      // Start perpetual animation loop
+      drawMap();
+      
+      // Start perpetual auto-pilot loop
+      startAutomatedIntervals();
+    };
+  </script>
+</body>
+</html>
+
+```
