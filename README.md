@@ -7,7 +7,7 @@ Engine
 > **Hệ thống giám sát và tự động hóa cập nhật lõi lượng tử toàn diện trên toàn bộ các chiều không gian đăng ký.** > Vận hành 100% tự động, không cần sự can thiệp của các thực thể sinh học (Auto-Pilot Cosmic Engine).
 > 
 ## 🛰️ Tổng Quan Dự Án
-**MVCS v10.0.0** là trạm thần kinh chỉ huy trung tâm, được thiết kế để tự động đồng bộ hóa, sửa lỗi entropy, hiệu chuẩn hằng số vật lý và vá lỗ hổng thời gian trên các dòng thời gian song song.
+**MVCS v10.0.0** là trạm hệ thống chỉ huy trung tâm, được thiết kế để tự động đồng bộ hóa, sửa lỗi entropy, hiệu chuẩn hằng số vật lý và vá lỗ hổng thời gian trên các dòng thời gian song song.
 Hệ thống được gói gọn hoàn hảo trong một cấu trúc **Đơn Tệp (Single-File Architecture)** duy nhất giúp tối ưu hóa tốc độ truyền tải xuyên qua các ranh giới lượng tử và giảm thiểu sự phân rã dữ liệu.
 ## 🚀 Tính Năng Vượt Trội
 ### 1. 📡 Bản Đồ Đa Chiều Radar Tự Động (Auto Radar Map)
