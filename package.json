@@ -1,0 +1,25 @@
+{
+  "name": "multiverse-optimization-engine",
+  "version": "1.0.0",
+  "description": "Multiverse Optimization Engine - Interactive physics simulation",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'No build step required for static HTML'",
+    "dev": "python3 -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kakashi-Multiverse/Multiverse.git"
+  },
+  "keywords": [
+    "multiverse",
+    "physics",
+    "simulation",
+    "optimization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
