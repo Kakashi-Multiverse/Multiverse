@@ -1,0 +1,22 @@
+```json
+{
+  "project_name": "Multiverse Optimization Engine",
+  "version": "1.2.0",
+  "last_updated": "2026-06-22",
+  "min_python_version": "3.8",
+  "config": {
+    "default_law": "spiral",
+    "default_will_power": 0.8,
+    "simulation_speed": 0.5
+  },
+  "changelog": {
+    "v1.2.0": [
+      "Thêm hệ thống theo dõi phiên bản tự động",
+      "Tối ưu hóa thuật toán phục hồi của Ý chí thực tế",
+      "Cải thiện render ASCII trên các môi trường terminal khác nhau"
+    ]
+  },
+  "update_url": "https://raw.githubusercontent.com/yourusername/multiverse-optimization-engine/main/version.json"
+}
+
+```
