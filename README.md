@@ -27,11 +27,11 @@ No matter how severe the deviation becomes, as long as the Actual Will coefficie
 Clone the repository and execute the script directly:
 ```bash
 # Clone the repository
-git clone [https://github.com/yourusername/multiverse-optimization-engine.git](https://github.com/yourusername/multiverse-optimization-engine.git)
+git clone [https://github.com/Kakashi-Multiverse/Multiverse.git](https://github.com/Kakashi-Multiverse/Multiverse.git)
 # Navigate into the directory
-cd multiverse-optimization-engine
+cd Multiverse
 # Run the simulator
-python3 multiverse_optimization_engine.py
+python3 main.py
 ```
 ## ⌨️ Interactive Controls
 While the simulation is running, type one of the following numbers and press Enter to interact with the Multiverse:
