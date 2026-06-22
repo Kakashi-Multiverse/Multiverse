@@ -20,18 +20,3 @@ No matter how severe the deviation becomes, as long as the Actual Will coefficie
  * **Interactive CLI Deck:** Live hotkeys allow you to inject localized cosmic anomalies (Big Bangs/Black Holes), switch between geometrical target structures, or alter the execution intensity of the Actual Will on the fly.
  * **Zero Dependencies:** Written entirely in pure Python using standard libraries (math, time, random, os, sys). Compatible with Windows, macOS, and Linux out of the box.
  * **Visual Telemetry:** Track real-time cosmic metrics including **Global Alignment Index (%)**, **Instantaneous Entropy (%)**, and active spatial paradoxes.
-## 🛠️ Installation & Execution
-### Prerequisites
- * Python 3.8 or higher installed on your system.
-### Quick Start
-Clone the repository and execute the script directly:
-```bash
-# Clone the repository
-git clone [https://github.com/Kakashi-Multiverse/Multiverse.git](https://github.com/Kakashi-Multiverse/Multiverse.git)
-# Navigate into the directory
-cd Multiverse
-# Run the simulator
-python3 main.py
-```
-## ⌨️ Interactive Controls
-While the simulation is running, type one of the following numbers and press Enter to interact with the Multiverse
