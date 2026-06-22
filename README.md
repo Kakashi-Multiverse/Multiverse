@@ -34,23 +34,4 @@ cd Multiverse
 python3 main.py
 ```
 ## ⌨️ Interactive Controls
-While the simulation is running, type one of the following numbers and press Enter to interact with the Multiverse:
-
-| Key | Action | Description |
-| :--- | :--- | :--- |
-| **1** | **Inject Big Bang** | Emits a high-velocity shockwave pushing nearby spacetime particles away. |
-| **2** | **Create Black Hole** | Generates an intense gravity well pulling surrounding particles into a singularity. |
-| **3** | **Set to Spiral Law** | Recalculates all targets into a perfect Fibonacci Golden Spiral. |
-| **4** | **Set to Grid Law** | Realigins targets into a highly stable 2D Hypercube grid. |
-| **5** | **Increase Will Power** | Amplifies the restoring coefficient (k) for instantaneous error correction. |
-| **6** | **Decrease Will Power** | Dampens the actual will, allowing chaos to persist longer. |
-| **Ctrl+C** | **Exit** | Gracefully shuts down the spacetime engine. |
-
-## 📊 Visual States Explained
- * * **Cyan Star:** The coordinate is in absolute alignment with the Actual Will (< 1.0 unit deviation).
- * o **Yellow Circle:** The coordinate is actively correcting itself (1.0 - 3.0 units deviation).
- * # **Red Hash:** The coordinate is under active chaos, suffering extreme deviation (> 3.0 units deviation).
- * X **Red Cross:** The epicenter of an active spatial anomaly/chaos seed.
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-*“To master nature, one must first obey it. The actual will of the multiverse remains unshakable.”*
+While the simulation is running, type one of the following numbers and press Enter to interact with the Multiverse
