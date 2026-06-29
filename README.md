@@ -52,6 +52,5 @@ This is the physical and mental design philosophy of your life. Complexity breed
 
 ## Action Plan: Daily Operational Checklist
  * [ ] **Morning (System Boot):** Define 1 to 3 realistic, high-priority objectives for the day (Pragmatic Will).
- * [ ] **Daytime (Execution & Harvesting):** Utilize smart tools, shortcuts, and automation to bypass manual grunt work (Smart Gathering & Management).
- * [ ] **Evening (Maintenance):** Declutter your physical workspace and digital desktop to maintain organizational hygiene (Elegant & Lean).
- * [ ] **Night (System Upgrade):** Allocate 30 minutes to read, absorb new intelligence, or deconstruct the day's errors to patch your system (Continuous Multiverse Auto-Updates).
+ * [ ] **Daytime (Maintenance):** Declutter your physical workspace and digital desktop to maintain organizational hygiene (Elegant & Lean).
+ * [ ] **Night (System Upgrade):** Tidy up the workspace to maintain orderliness and analyze the day's errors to patch system flaws (with continuous automatic updates).
